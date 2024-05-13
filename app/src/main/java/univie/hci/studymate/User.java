@@ -2,6 +2,7 @@ package univie.hci.studymate;
 
 import java.util.Collection;
 import java.util.Objects;
+import java.util.UUID;
 
 public class User {
     private String name;
@@ -58,9 +59,10 @@ public class User {
      * should open Chat view
      * TODO: IT IS NOT DONE
      * TODO: architecture of chat and how to open chat need to be better implemented!!!!!!!
+     * NOTE: Maybe when user scrolls through chatlist, user selects chat, and we than have access to UUID
      * */
-    void openChatWith(User user) {
-        return;
+    void openCha(UUID chat) {
+        chats.openChat(chat);
     }
 
     @Override

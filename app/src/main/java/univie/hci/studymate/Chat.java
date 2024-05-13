@@ -20,6 +20,10 @@ public class Chat {
         return chatId;
     }
 
+    public Collection<User> getChatters() {
+        return chatters;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
