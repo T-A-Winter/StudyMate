@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-public class User  implements Parcelable {
+public class User implements Parcelable {
     private String name;
     private University university;
     private Collection<Tag> tags;
@@ -50,7 +50,6 @@ public class User  implements Parcelable {
         tags = new ArrayList<>();
         in.readList((List<Tag>) tags, Tag.class.getClassLoader());
         email = in.readString();
-        // handle cases when the non obligatory fields are null
         phoneNumber = in.readInt();
         biography = in.readString();
     }
@@ -97,6 +96,9 @@ public class User  implements Parcelable {
     public Collection<Tag> getTags() {
         return tags;
     }
+
+    public University getUniversity() { return university; }
+    public String getBiography() { return biography; }
 
     /**
      * should open Chat view
