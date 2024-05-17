@@ -1,16 +1,21 @@
 package univie.hci.studymate;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
-public class User {
+public class User  implements Parcelable {
     private String name;
     private University university;
     private Collection<Tag> tags;
     private String email; // Is the ID of the user
-    private int phoneNumber;
-    private String biography;
+    private Integer phoneNumber = 0;
+    private String biography = "";
     private FriendList friends;
     private ChatList chats;
     /**
@@ -37,6 +42,44 @@ public class User {
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.biography = biography;
+    }
+
+    protected User(Parcel in) {
+        name = in.readString();
+        university = University.valueOf(in.readString());
+        tags = new ArrayList<>();
+        in.readList((List<Tag>) tags, Tag.class.getClassLoader());
+        email = in.readString();
+        // handle cases when the non obligatory fields are null
+        phoneNumber = in.readInt();
+        biography = in.readString();
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(name);
+        parcel.writeString(university.name());
+        parcel.writeList(new ArrayList<>(tags));
+        parcel.writeString(email);
+        parcel.writeInt(phoneNumber);
+        parcel.writeString(biography);
     }
 
     public void setPhoneNumber(int phoneNumber) {
