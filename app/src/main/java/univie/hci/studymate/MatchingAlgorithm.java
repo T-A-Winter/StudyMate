@@ -11,6 +11,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.bumptech.glide.Glide;
+import com.github.chrisbanes.photoview.PhotoView;
+
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -50,6 +53,11 @@ public class MatchingAlgorithm extends AppCompatActivity {
 
         // prompt fist matched user
         promptFirstUser();
+    }
+
+    private void setDefaultProfilePicture() {
+        PhotoView profilePicture = findViewById(R.id.profilePicture);
+        profilePicture.setImageResource(R.drawable.defaul_user);
     }
 
     private Collection<User> createRandomUsers() {
@@ -122,5 +130,18 @@ public class MatchingAlgorithm extends AppCompatActivity {
             bioTextView.setText(nothingHereText);
         }
         bioTextView.setText(currentlyViewdUser.getBiography());
+
+        setRandomProfilePicture();
+    }
+
+    private void setRandomProfilePicture() {
+        PhotoView profilePicture = findViewById(R.id.profilePicture);
+        int min = 1;
+        int max = 1000000;
+        String url = "https://api.dicebear.com/8.x/lorelei/svg?seed=" + random.nextInt(max - min + 1) + min;
+
+        Glide.with(this)
+                .load(url)
+                .into(profilePicture);
     }
 }

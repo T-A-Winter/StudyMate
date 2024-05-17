@@ -22,7 +22,4 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public String getUserMatchingAlgoString() {
-        return USER_MATCHING_ALGO_STRING;
-    }
 }
