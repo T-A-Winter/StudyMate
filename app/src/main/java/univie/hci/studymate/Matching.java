@@ -19,26 +19,22 @@ public class Matching {
 
     /**
      * @param user The user with the match algo will run on
-     * @return the user with the most common Tags. If there are no user, null will be returned
-     * */
-    public User match_one(User user) {
-        return users.stream()
-                .filter(other -> !other.equals(user)) // To not return the input user
-                .max((userOne, userTwo) -> Integer.compare(
-                        countCommonTags(user, userOne),
-                        countCommonTags(user, userTwo)))
-                .orElse(null);
-    }
-    /**
-     * @param user The user with the match algo will run on
      * @return returns a sorted list of users, sorted by the most common Tag
      * */
     public Collection<User> match_more(User user) {
         return users.stream()
                 .filter(other -> !other.equals(user)) // To not return the input user
-                .sorted((userOne, userTwo) -> Integer.compare(
-                        countCommonTags(user, userTwo),
-                        countCommonTags(user, userOne))) // Sort in descending order
+                .sorted((userOne, userTwo) -> {
+
+                    int uniComparison = compareUniversities(user.getUniversity(), userOne.getUniversity(), userTwo.getUniversity());
+                    if (uniComparison != 0) {
+                        // would we not only sort after this rule if uniComparison is not 0?
+                        return uniComparison;
+                    }
+                    return Integer.compare(
+                            countCommonTags(user, userTwo),
+                            countCommonTags(user, userOne));
+                }) // Sort in descending order
                 .collect(Collectors.toList());
     }
 
@@ -48,5 +44,17 @@ public class Matching {
 
         user1Tags.retainAll(user2Tags);
         return user1Tags.size();
+    }
+
+    private int compareUniversities(University mainUserUni, University uniUserOne, University uniUserTwo) {
+        boolean userOneSameUni = mainUserUni == uniUserOne;
+        boolean userTwoSameUni = mainUserUni == uniUserTwo;
+
+        if (userOneSameUni && !userTwoSameUni) {
+            return 1;
+        } else if (!userOneSameUni && userTwoSameUni) {
+            return -1;
+        }
+        return 0; // both users have the same uni
     }
 }
