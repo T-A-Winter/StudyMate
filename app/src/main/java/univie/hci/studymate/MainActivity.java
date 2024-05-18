@@ -21,11 +21,15 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        // TODO: Comment this out for now. Otherwise it starts the search/matching algo
         startSearch();
     }
 
     private void startSearch() {
         Intent intent = new Intent(MainActivity.this, MatchingAlgorithm.class);
+        // TODO: When the user is created put it in the intent as a extra
+        // User user; TODO: get the infos for a new user and create the user
+        // intent.putExtra(USER_MATCHING_ALGO_STRING, user);
         startActivity(intent);
     }
 }
