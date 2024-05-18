@@ -1,3 +1,29 @@
 <resources>
     <string name="app_name">StudyMate</string>
+    <string-array name="university_array">
+        <item>UNI WIEN</item>
+        <item>TU</item>
+        <item>BOKU</item>
+    </string-array>
+
+    <string-array name="tag_array">
+        <item>MENTOR</item>
+        <item>ERSTI</item>
+        <item>TUTOR</item>
+        <item>HCI</item>
+        <item>SE1</item>
+        <item>ADS</item>
+        <item>ADS2</item>
+        <item>PR1</item>
+        <item>PR2</item>
+        <item>MG1</item>
+        <item>MG2</item>
+        <item>EMM</item>
+        <item>THI</item>
+        <item>TGI</item>
+    </string-array>
+
 </resources>
+
+
+
