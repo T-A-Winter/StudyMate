@@ -133,14 +133,17 @@ public class MatchingAlgorithm extends AppCompatActivity {
         TextView uniTextView = findViewById(R.id.UniTextView);
         TextView tagsTextView = findViewById(R.id.TagsTextView);
         TextView bioTextView = findViewById(R.id.BioTextView);
+        TextView nameTextView = findViewById(R.id.nameTextView);
 
         if (currentlyViewedUser == null) {
             uniTextView.setText(nothingHereText);
             tagsTextView.setText(nothingHereText);
             bioTextView.setText(nothingHereText);
+            nameTextView.setText(nothingHereText);
             return;
         }
         // get the strings for the TextViews
+        nameTextView.setText(currentlyViewedUser.getName());
         uniTextView.setText(currentlyViewedUser.getUniversity().name());
         // Building the tags string TextView
         String tags = currentlyViewedUser.getTags().stream()

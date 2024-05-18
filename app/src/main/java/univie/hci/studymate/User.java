@@ -99,6 +99,7 @@ public class User implements Parcelable {
 
     public University getUniversity() { return university; }
     public String getBiography() { return biography; }
+    public String getName() { return name; }
 
     /**
      * should open Chat view
