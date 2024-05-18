@@ -16,7 +16,7 @@ public class User implements Parcelable {
     private String email; // Is the ID of the user
     private Integer phoneNumber = 0;
     private String biography = "";
-    private FriendList friends;
+    private FriendList friends = new FriendList();
     private ChatList chats;
     /**
      * Base Ctor. <br>
@@ -89,7 +89,7 @@ public class User implements Parcelable {
         this.biography = biography;
     }
 
-    public void addFriends(User newFriend) {
+    public void addFriend(User newFriend) {
         this.friends.addFriend(newFriend);
     }
 

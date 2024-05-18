@@ -5,13 +5,29 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#40ABB7"
+    android:background="#3F51B5"
     tools:context=".MatchingAlgorithm">
+
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="104dp"
+        android:layout_height="102dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.876"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.964"
+        app:srcCompat="@drawable/my_button_bg" />
 
     <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/profilePicture"
-        android:layout_width="141dp"
-        android:layout_height="147dp"
+        android:layout_width="214dp"
+        android:layout_height="280dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
@@ -28,10 +44,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="71dp"
         android:layout_marginBottom="64dp"
+        android:backgroundTint="#3F51B5"
         android:onClick="matchedWithUser"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@android:drawable/ic_input_add" />
+        app:srcCompat="@drawable/students" />
 
     <ImageButton
         android:id="@+id/RejectButton"
@@ -39,10 +56,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="71dp"
         android:layout_marginBottom="64dp"
+        android:backgroundTint="#3F51B5"
         android:onClick="declineWithUser"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@android:drawable/ic_delete" />
+        app:srcCompat="@drawable/cross" />
 
     <TextView
         android:id="@+id/UniTextView"
@@ -51,6 +69,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="56dp"
         android:text="Uni"
+        android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profilePicture" />
 
@@ -61,6 +80,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:text="Tags"
+        android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/UniTextView" />
 
@@ -71,6 +91,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:text="Bio"
+        android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TagsTextView" />
 
