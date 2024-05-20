@@ -142,7 +142,6 @@ public class MatchingAlgorithm extends AppCompatActivity {
     }
 
     private void promptMatchedUser() {
-        // TODO: textViews are not shown correctly.
         TextView uniTextView = findViewById(R.id.UniTextView);
         TextView tagsTextView = findViewById(R.id.TagsTextView);
         TextView bioTextView = findViewById(R.id.BioTextView);

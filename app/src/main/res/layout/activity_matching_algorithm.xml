@@ -81,8 +81,8 @@
 
     <TextView
         android:id="@+id/TagsTextView"
-        android:layout_width="83dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/edit_text_background"
@@ -93,8 +93,8 @@
 
     <TextView
         android:id="@+id/BioTextView"
-        android:layout_width="83dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
         android:background="@drawable/edit_text_background"
@@ -108,17 +108,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="176dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/edit_text_background"
         android:text="Name"
         android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profilePicture" />
+        app:layout_constraintTop_toBottomOf="@+id/backgroundImage2" />
 
     <TextView
         android:id="@+id/UniTextView"
-        android:layout_width="83dp"
-        android:layout_height="40dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:background="@drawable/edit_text_background"
         android:text="Uni"
@@ -130,10 +130,11 @@
         android:id="@+id/imageView3"
         android:layout_width="59dp"
         android:layout_height="49dp"
-        android:layout_marginStart="48dp"
+        android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         app:layout_constraintBottom_toTopOf="@+id/backgroundImage"
-        app:layout_constraintStart_toEndOf="@+id/profilePicture"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/backgroundImage2"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.01"
         app:srcCompat="@drawable/logo" />
@@ -142,11 +143,12 @@
         android:id="@+id/settingsButton"
         android:layout_width="59dp"
         android:layout_height="49dp"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="32dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/profilePicture"
+        app:layout_constraintHorizontal_bias="0.208"
+        app:layout_constraintStart_toEndOf="@+id/backgroundImage2"
         app:layout_constraintTop_toBottomOf="@+id/imageView3"
         app:srcCompat="@drawable/settingsbutton" />
 
