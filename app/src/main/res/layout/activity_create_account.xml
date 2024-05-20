@@ -64,24 +64,26 @@
                     android:id="@+id/usernameEditText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:hint="Username"
+                    android:layout_marginTop="8dp"
                     android:background="@drawable/edit_text_background"
-                    app:layout_constraintTop_toBottomOf="@id/imageViewPhoto"
-                    app:layout_constraintStart_toStartOf="parent"
+                    android:hint="Username"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginTop="16dp"/>
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imageViewPhoto" />
 
                 <EditText
                     android:id="@+id/passwordEditText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/edit_text_background"
                     android:hint="Password"
                     android:inputType="textPassword"
-                    android:background="@drawable/edit_text_background"
-                    app:layout_constraintTop_toBottomOf="@id/usernameEditText"
-                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:layout_marginTop="8dp"/>
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/usernameEditText" />
 
                 <EditText
                     android:id="@+id/emailEditText"
@@ -95,13 +97,24 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginTop="8dp"/>
 
+                <EditText
+                    android:id="@+id/phonenumberEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Phone Number"
+                    android:inputType="phone"
+                    android:background="@drawable/edit_text_background"
+                    app:layout_constraintTop_toBottomOf="@id/emailEditText"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginTop="8dp"/>
+
                 <TextView
                     android:id="@+id/uniLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="University:"
-                    android:background="@drawable/edit_text_background"
-                    app:layout_constraintTop_toBottomOf="@id/emailEditText"
+                    app:layout_constraintTop_toBottomOf="@id/phonenumberEditText"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginTop="16dp"/>
 
@@ -118,7 +131,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Tag:"
-                    android:background="@drawable/edit_text_background"
                     app:layout_constraintTop_toBottomOf="@id/universitySpinner"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginTop="16dp"/>
