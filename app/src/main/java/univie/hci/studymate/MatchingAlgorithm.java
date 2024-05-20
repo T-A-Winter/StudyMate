@@ -26,20 +26,14 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class MatchingAlgorithm extends AppCompatActivity {
-    private Random random = new Random();
+    private final Random random = new Random();
     // matching algo is created with random users
-    private Matching matchingAlgo = new Matching(createRandomUsers());
+    private final Matching matchingAlgo = new Matching(createRandomUsers());
     static final private String USER_MATCHING_ALGO_STRING = MainActivity.USER_MATCHING_ALGO_STRING;
     private User user;
     private Queue<User> matchedUsers;
-    private String nothingHereText = "Sorry nothing here";
     private User currentlyViewedUser;
     private ImageView settingsButton;
-
-    private String uniTextPrefix = "Uni: ";
-    private String tagsTextPrefix = "Tags: ";
-    private String bioTextPrefix = "Bio from:\n";
-
 
 
     @Override
@@ -48,15 +42,6 @@ public class MatchingAlgorithm extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_matching_algorithm);
 
-
-        settingsButton = findViewById(R.id.settingsButton);
-        settingsButton.setOnClickListener(v -> {
-            Intent intent = new Intent(MatchingAlgorithm.this, SettingsActivity.class);
-            startActivity(intent);
-        });
-
-
-
         // get the user
         user = getUserFromIntent();
         // get matching users
@@ -64,6 +49,12 @@ public class MatchingAlgorithm extends AppCompatActivity {
 
         // prompt fist matched user
         promptFirstUser();
+    }
+
+    public void settingsButton(View view) {
+        Intent intent = new Intent(MatchingAlgorithm.this, SettingsActivity.class);
+        intent.putExtra(USER_MATCHING_ALGO_STRING, user);
+        startActivity(intent);
     }
 
     private User getUserFromIntent() {
@@ -147,6 +138,7 @@ public class MatchingAlgorithm extends AppCompatActivity {
         TextView bioTextView = findViewById(R.id.BioTextView);
         TextView nameTextView = findViewById(R.id.nameTextView);
 
+        String nothingHereText = "Sorry nothing here";
         if (currentlyViewedUser == null) {
             uniTextView.setText(nothingHereText);
             tagsTextView.setText(nothingHereText);
@@ -157,6 +149,7 @@ public class MatchingAlgorithm extends AppCompatActivity {
 
         // get the strings for the TextViews
         nameTextView.setText(currentlyViewedUser.getName());
+        String uniTextPrefix = "Uni: ";
         String uniText = uniTextPrefix + currentlyViewedUser.getUniversity().name();
         uniTextView.setText(uniText);
 
@@ -166,6 +159,7 @@ public class MatchingAlgorithm extends AppCompatActivity {
                 .collect(Collectors.joining(", "));
 
 
+        String tagsTextPrefix = "Tags: ";
         if (tags.isEmpty()) {
             String nothingHereTags = tagsTextPrefix + nothingHereText;
             tagsTextView.setText(nothingHereTags);
@@ -178,6 +172,7 @@ public class MatchingAlgorithm extends AppCompatActivity {
         if (currentlyViewedUser.getBiography() == null || currentlyViewedUser.getBiography().isEmpty()) {
             bioTextView.setText(nothingHereText);
         } else {
+            String bioTextPrefix = "Biographie:\n";
             String bioText = bioTextPrefix + currentlyViewedUser.getBiography();
             bioTextView.setText(bioText);
         }
@@ -187,10 +182,6 @@ public class MatchingAlgorithm extends AppCompatActivity {
 
     private void setRandomProfilePicture() {
         PhotoView profilePicture = findViewById(R.id.profilePicture);
-        if (profilePicture == null) {
-            System.out.println("HI");
-            return;
-        }
         int min = 1;
         int max = 1000000;
         String url = "https://api.dicebear.com/8.x/lorelei/png?seed=" + random.nextInt(max - min + 1) + min;

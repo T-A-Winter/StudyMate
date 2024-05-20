@@ -11,9 +11,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+
 public class SettingsActivity extends AppCompatActivity {
 
     private ImageView chatButton , matchingButton , calendarButton, friendsListButton;
+    private User user;
 
 
     @Override
@@ -22,6 +27,10 @@ public class SettingsActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_settings);
 
+        // getting user
+        user = getUserFromIntent();
+        // TODO: When the other views are finished, the user needs to be send to the other
+        // TODO: views. Otherwise, user object is lost.
         chatButton = findViewById(R.id.chatButton);
         chatButton.setOnClickListener(v -> {
             Intent intent = new Intent(SettingsActivity.this, Chat.class);
@@ -47,8 +56,23 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
 
-}
+    }
 
+    private User getUserFromIntent() {
+        Intent intent = getIntent();
+        User user = intent.getParcelableExtra(MainActivity.USER_MATCHING_ALGO_STRING);
+        if (user == null) {
+            user = setFailSafeUser();
+        }
+        return user;
+    }
 
+    private User setFailSafeUser() {
+        String name = "failSafeUser";
+        Collection<Tag> tags = new ArrayList<>(Arrays.asList(Tag.ERSTI, Tag.HCI));
+        University uni = University.UNI_WIEN;
+        String email = "failsafe@example.com";
+        return new User(name, uni, tags, email);
+    }
 }
 
