@@ -2,9 +2,105 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background_gradient"
     tools:context=".SettingsActivity">
+
+    <TextView
+        android:id="@+id/matchingTestview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Matching"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/matchingButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp" />
+
+    <ImageView
+        android:id="@+id/matchingButton"
+        android:layout_width="289dp"
+        android:layout_height="125dp"
+        app:layout_constraintBottom_toTopOf="@+id/chatTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/matchingTestview"
+        app:srcCompat="@drawable/matchinglogo" />
+
+    <TextView
+        android:id="@+id/chatTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Chat"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/chatButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/matchingButton" />
+
+    <ImageView
+        android:id="@+id/chatButton"
+        android:layout_width="288dp"
+        android:layout_height="123dp"
+        app:layout_constraintBottom_toTopOf="@+id/calendarTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chatTextView"
+        app:srcCompat="@drawable/chatlogo" />
+
+    <TextView
+        android:id="@+id/calendarTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Calendar"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/calendarButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chatButton" />
+
+    <ImageView
+        android:id="@+id/calendarButton"
+        android:layout_width="150dp"
+        android:layout_height="111dp"
+        app:layout_constraintBottom_toTopOf="@+id/friendsListTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calendarTextView"
+        android:layout_marginTop="16dp"
+        app:srcCompat="@drawable/calendarlogo" />
+
+    <TextView
+        android:id="@+id/friendsListTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Friends List"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@id/friendsListButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/calendarButton"
+        android:layout_marginTop="16dp" />
+
+    <ImageView
+        android:id="@+id/friendsListButton"
+        android:layout_width="157dp"
+        android:layout_height="142dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/friendsListTextView"
+        android:layout_marginTop="16dp"
+        app:srcCompat="@drawable/friendslistlogo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

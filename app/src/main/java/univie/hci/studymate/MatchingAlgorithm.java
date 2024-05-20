@@ -44,10 +44,8 @@ public class MatchingAlgorithm extends AppCompatActivity {
         setContentView(R.layout.activity_matching_algorithm);
 
 
-        // Setup für den settingsButton
         settingsButton = findViewById(R.id.settingsButton);
         settingsButton.setOnClickListener(v -> {
-            // Starte die SettingsActivity beim Klick auf settingsButton
             Intent intent = new Intent(MatchingAlgorithm.this, SettingsActivity.class);
             startActivity(intent);
         });
