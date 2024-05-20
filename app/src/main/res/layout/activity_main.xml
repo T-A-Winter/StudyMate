@@ -2,20 +2,18 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_gradient"
-
-
     tools:context=".MainActivity">
-
 
     <Button
         android:id="@+id/loginEmailButton"
         android:layout_width="335dp"
         android:layout_height="70dp"
-        android:layout_marginTop="44dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="10dp"
         android:backgroundTint="#D8CDCD"
         android:text="Login with Email"
         android:textColor="@color/black"
@@ -24,9 +22,9 @@
         app:iconTint="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/createAccountButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.48000002"
         app:rippleColor="#F3EBEB"
         app:strokeColor="#F1EBEB" />
 
@@ -34,7 +32,6 @@
         android:id="@+id/createAccountButton"
         android:layout_width="335dp"
         android:layout_height="70dp"
-        android:layout_marginTop="1dp"
         android:layout_marginBottom="40dp"
         android:backgroundTint="#D8CDCD"
         android:text="Create StudyMate account"
@@ -44,7 +41,6 @@
         app:iconTint="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.523"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginEmailButton"
         app:rippleColor="#F3EBEB"
@@ -52,10 +48,9 @@
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="292dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="50dp"
-        android:layout_marginBottom="192dp"
+        android:layout_width="338dp"
+        android:layout_height="112dp"
+        android:layout_marginTop="12dp"
         android:fontFamily="@font/architects_daughter"
         android:text="Welcome to StudyMate"
         android:textAlignment="center"
@@ -64,21 +59,32 @@
         android:textSize="37sp"
         android:textStyle="bold|italic"
         android:typeface="normal"
-        app:layout_constraintBottom_toBottomOf="@+id/createAccountButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.13"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="343dp"
-        android:layout_height="387dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView"
+        android:layout_width="386dp"
+        android:layout_height="449dp"
+        android:layout_marginTop="4dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo" />
 
+    <ImageView
+        android:id="@+id/changeBackgroundButton"
+        android:layout_width="64dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.02"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createAccountButton"
+        app:srcCompat="@drawable/changecolor" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
