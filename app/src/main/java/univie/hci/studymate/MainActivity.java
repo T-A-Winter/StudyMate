@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,7 +14,12 @@ import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
     public static final String USER_MATCHING_ALGO_STRING = "USER_MATCHING_ALGO_STRING";
-    private Button createAccountButton;
+    private Button createAccountButton ;
+
+
+    private Button loginEmailButton;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
         createAccountButton = findViewById(R.id.createAccountButton);
+        loginEmailButton = findViewById(R.id.loginEmailButton);
 
       /*  ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -30,14 +37,29 @@ public class MainActivity extends AppCompatActivity {
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Intent erstellen, um zur RegistrationActivity zu wechseln
+
                 Intent intent = new Intent(MainActivity.this, CreateAccount.class);
                 startActivity(intent);
             }
+
+
         });
+
+        loginEmailButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LoginEmail.class);
+                startActivity(intent);
+            }
+        });
+
+
+
+
         // TODO: Comment this out for now. Otherwise it starts the search/matching algo
        // startSearch();
     }
+
         //TODO: eventuell löschen weil man aus CreateAccount.java auf MatchingAlgorithm zugreifen kann
     private void startSearch() {
         Intent intent = new Intent(MainActivity.this, MatchingAlgorithm.class);
@@ -46,4 +68,6 @@ public class MainActivity extends AppCompatActivity {
         // intent.putExtra(USER_MATCHING_ALGO_STRING, user);
         startActivity(intent);
     }
+
+
 }

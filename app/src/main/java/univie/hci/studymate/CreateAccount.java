@@ -27,7 +27,7 @@ public class CreateAccount extends AppCompatActivity {
     private University selectedUniversity;
     private Spinner tagSpinner;
 
-    // ActivityResultLauncher für das Ergebnis nach Auswahl des Bildes
+
     private final ActivityResultLauncher<Intent> mGetContent = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == RESULT_OK && result.getData() != null) {
