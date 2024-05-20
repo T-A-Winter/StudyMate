@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         // TODO: Comment this out for now. Otherwise it starts the search/matching algo
        // startSearch();
     }
-
+        //TODO: eventuell löschen weil man aus CreateAccount.java auf MatchingAlgorithm zugreifen kann
     private void startSearch() {
         Intent intent = new Intent(MainActivity.this, MatchingAlgorithm.class);
         // TODO: When the user is created put it in the intent as a extra

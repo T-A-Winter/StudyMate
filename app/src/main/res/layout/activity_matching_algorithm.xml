@@ -2,10 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#3F51B5"
+    android:background="@drawable/background_gradient"
     tools:context=".MatchingAlgorithm">
 
     <ImageView
@@ -18,22 +17,23 @@
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.876"
+        app:layout_constraintHorizontal_bias="0.868"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.964"
+        app:layout_constraintVertical_bias="0.845"
         app:srcCompat="@drawable/my_button_bg" />
 
     <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/profilePicture"
-        android:layout_width="214dp"
-        android:layout_height="280dp"
+        android:layout_width="212dp"
+        android:layout_height="265dp"
         android:layout_marginStart="32dp"
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="32dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.398"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
@@ -42,8 +42,8 @@
         android:id="@+id/matchButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="71dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginBottom="136dp"
         android:backgroundTint="#3F51B5"
         android:onClick="matchedWithUser"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -54,8 +54,8 @@
         android:id="@+id/RejectButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="71dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginBottom="136dp"
         android:backgroundTint="#3F51B5"
         android:onClick="declineWithUser"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -64,10 +64,10 @@
 
     <TextView
         android:id="@+id/UniTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="56dp"
+        android:layout_width="53dp"
+        android:layout_height="21dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="64dp"
         android:text="Uni"
         android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,10 +75,10 @@
 
     <TextView
         android:id="@+id/TagsTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="53dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
         android:text="Tags"
         android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
@@ -86,10 +86,10 @@
 
     <TextView
         android:id="@+id/BioTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="53dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="12dp"
         android:text="Bio"
         android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
@@ -99,11 +99,35 @@
         android:id="@+id/nameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="184dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="176dp"
+        android:layout_marginTop="24dp"
         android:text="Name"
         android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profilePicture" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="59dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="48dp"
+        app:layout_constraintBottom_toTopOf="@+id/backgroundImage"
+        app:layout_constraintStart_toEndOf="@+id/profilePicture"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.01"
+        app:srcCompat="@drawable/logo" />
+
+    <ImageView
+        android:id="@+id/settingsButton"
+        android:layout_width="94dp"
+        android:layout_height="67dp"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.164"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RejectButton"
+        app:layout_constraintVertical_bias="0.733"
+        app:srcCompat="@drawable/settingsbutton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

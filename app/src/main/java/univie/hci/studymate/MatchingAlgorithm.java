@@ -3,6 +3,7 @@ package univie.hci.studymate;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -33,17 +34,25 @@ public class MatchingAlgorithm extends AppCompatActivity {
     Queue<User> matchedUsers;
     String nothingHereText = "Sorry nothing here";
     User currentlyViewedUser;
+    private ImageView settingsButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_matching_algorithm);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+
+        // Setup für den settingsButton
+        settingsButton = findViewById(R.id.settingsButton);
+        settingsButton.setOnClickListener(v -> {
+            // Starte die SettingsActivity beim Klick auf settingsButton
+            Intent intent = new Intent(MatchingAlgorithm.this, SettingsActivity.class);
+            startActivity(intent);
         });
+
+
 
         // get the user
         user = getUserFromIntent();
