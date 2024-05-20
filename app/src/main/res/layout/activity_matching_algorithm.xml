@@ -8,77 +8,84 @@
     tools:context=".MatchingAlgorithm">
 
     <ImageView
-        android:id="@+id/backgroundImage"
+        android:id="@+id/backgroundImage1"
         android:layout_width="104dp"
         android:layout_height="102dp"
-        android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="64dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.868"
+        app:srcCompat="@drawable/my_button_bg" />
+
+    <ImageView
+        android:id="@+id/backgroundImage2"
+        android:layout_width="238dp"
+        android:layout_height="297dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.845"
+        app:layout_constraintVertical_bias="0.03"
+        app:srcCompat="@drawable/my_button_bg" />
+
+    <ImageView
+        android:id="@+id/backgroundImage3"
+        android:layout_width="104dp"
+        android:layout_height="102dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginBottom="64dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/my_button_bg" />
 
     <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/profilePicture"
         android:layout_width="212dp"
         android:layout_height="265dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.398"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/backgroundImage2"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundImage2"
+        app:layout_constraintStart_toStartOf="@+id/backgroundImage2"
+        app:layout_constraintTop_toTopOf="@+id/backgroundImage2"
         app:layout_constraintVertical_bias="0.0" />
+
 
     <ImageButton
         android:id="@+id/matchButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="72dp"
-        android:layout_marginBottom="136dp"
         android:backgroundTint="#3F51B5"
         android:onClick="matchedWithUser"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/backgroundImage1"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundImage1"
+        app:layout_constraintStart_toStartOf="@+id/backgroundImage1"
+        app:layout_constraintTop_toTopOf="@+id/backgroundImage1"
         app:srcCompat="@drawable/students" />
 
     <ImageButton
         android:id="@+id/RejectButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="52dp"
-        android:layout_marginBottom="136dp"
         android:backgroundTint="#3F51B5"
         android:onClick="declineWithUser"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/backgroundImage3"
+        app:layout_constraintEnd_toEndOf="@+id/backgroundImage3"
+        app:layout_constraintStart_toStartOf="@+id/backgroundImage3"
+        app:layout_constraintTop_toTopOf="@+id/backgroundImage3"
         app:srcCompat="@drawable/cross" />
 
     <TextView
-        android:id="@+id/UniTextView"
-        android:layout_width="53dp"
-        android:layout_height="21dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="64dp"
-        android:text="Uni"
-        android:textColor="#000000"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profilePicture" />
-
-    <TextView
         android:id="@+id/TagsTextView"
-        android:layout_width="53dp"
-        android:layout_height="22dp"
+        android:layout_width="83dp"
+        android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
+        android:background="@drawable/edit_text_background"
         android:text="Tags"
         android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
@@ -86,10 +93,11 @@
 
     <TextView
         android:id="@+id/BioTextView"
-        android:layout_width="53dp"
-        android:layout_height="23dp"
+        android:layout_width="83dp"
+        android:layout_height="40dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="12dp"
+        android:background="@drawable/edit_text_background"
         android:text="Bio"
         android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
@@ -101,16 +109,29 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="176dp"
         android:layout_marginTop="24dp"
+        android:background="@drawable/edit_text_background"
         android:text="Name"
         android:textColor="#000000"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profilePicture" />
+
+    <TextView
+        android:id="@+id/UniTextView"
+        android:layout_width="83dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/edit_text_background"
+        android:text="Uni"
+        android:textColor="#000000"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="59dp"
         android:layout_height="49dp"
         android:layout_marginStart="48dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintBottom_toTopOf="@+id/backgroundImage"
         app:layout_constraintStart_toEndOf="@+id/profilePicture"
         app:layout_constraintTop_toTopOf="parent"
@@ -119,15 +140,14 @@
 
     <ImageView
         android:id="@+id/settingsButton"
-        android:layout_width="94dp"
-        android:layout_height="67dp"
-        android:layout_marginBottom="24dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="59dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.164"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/RejectButton"
-        app:layout_constraintVertical_bias="0.733"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/profilePicture"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3"
         app:srcCompat="@drawable/settingsbutton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

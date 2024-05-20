@@ -26,15 +26,20 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class MatchingAlgorithm extends AppCompatActivity {
-    Random random = new Random();
+    private Random random = new Random();
     // matching algo is created with random users
-    Matching matchingAlgo = new Matching(createRandomUsers());
+    private Matching matchingAlgo = new Matching(createRandomUsers());
     static final private String USER_MATCHING_ALGO_STRING = MainActivity.USER_MATCHING_ALGO_STRING;
-    User user;
-    Queue<User> matchedUsers;
-    String nothingHereText = "Sorry nothing here";
-    User currentlyViewedUser;
+    private User user;
+    private Queue<User> matchedUsers;
+    private String nothingHereText = "Sorry nothing here";
+    private User currentlyViewedUser;
     private ImageView settingsButton;
+
+    private String uniTextPrefix = "Uni: ";
+    private String tagsTextPrefix = "Tags: ";
+    private String bioTextPrefix = "Bio from:\n";
+
 
 
     @Override
@@ -137,6 +142,7 @@ public class MatchingAlgorithm extends AppCompatActivity {
     }
 
     private void promptMatchedUser() {
+        // TODO: textViews are not shown correctly.
         TextView uniTextView = findViewById(R.id.UniTextView);
         TextView tagsTextView = findViewById(R.id.TagsTextView);
         TextView bioTextView = findViewById(R.id.BioTextView);
@@ -149,20 +155,34 @@ public class MatchingAlgorithm extends AppCompatActivity {
             nameTextView.setText(nothingHereText);
             return;
         }
+
         // get the strings for the TextViews
         nameTextView.setText(currentlyViewedUser.getName());
-        uniTextView.setText(currentlyViewedUser.getUniversity().name());
+        String uniText = uniTextPrefix + currentlyViewedUser.getUniversity().name();
+        uniTextView.setText(uniText);
+
         // Building the tags string TextView
         String tags = currentlyViewedUser.getTags().stream()
                 .map(Tag::name)
                 .collect(Collectors.joining(", "));
-        tagsTextView.setText(tags);
 
+
+        if (tags.isEmpty()) {
+            String nothingHereTags = tagsTextPrefix + nothingHereText;
+            tagsTextView.setText(nothingHereTags);
+        } else {
+            String tagsText = tagsTextPrefix + tags;
+            tagsTextView.setText(tagsText);
+        }
+
+        // Bio text view
         if (currentlyViewedUser.getBiography() == null || currentlyViewedUser.getBiography().isEmpty()) {
             bioTextView.setText(nothingHereText);
         } else {
-            bioTextView.setText(currentlyViewedUser.getBiography());
+            String bioText = bioTextPrefix + currentlyViewedUser.getBiography();
+            bioTextView.setText(bioText);
         }
+
         setRandomProfilePicture();
     }
 
