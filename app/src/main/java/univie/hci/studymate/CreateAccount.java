@@ -38,7 +38,15 @@ public class CreateAccount extends AppCompatActivity {
 
     //dodano
     private ConstraintLayout mainLayout;
+    private int currentBackgroundIndex = 0;
+    private int[] backgroundResources = {
+            R.drawable.background_gradient,
+            R.drawable.background_gradient_other,
+            R.drawable.background_gradient_second,
+            R.drawable.background_gradient_third
 
+    };
+        //pick an image
     private final ActivityResultLauncher<Intent> mGetContent = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == RESULT_OK && result.getData() != null) {
@@ -111,15 +119,13 @@ public class CreateAccount extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+    //load last saved background index and apply background based on that index
+        currentBackgroundIndex = getSharedPreferences("prefs", MODE_PRIVATE).getInt("backgroundIndex", 0);
+        applyBackground();
 
-        //dodano ovo dole
-        boolean isOldBackground = getSharedPreferences("prefs", MODE_PRIVATE).getBoolean("isOldBackground", true);
-        Drawable background = isOldBackground ?
-                ContextCompat.getDrawable(this, R.drawable.background_gradient) :
-                ContextCompat.getDrawable(this, R.drawable.background_gradient_other);
-        mainLayout.setBackground(background);
 
     }
+
 
     private void openGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -146,7 +152,7 @@ public class CreateAccount extends AppCompatActivity {
         mainLayout = findViewById(R.id.main_layout); //DODANO I OVO
 
     }
-
+    //User infos to be taken to next view
     private void startSearch(User user) {
         Intent intent = new Intent(CreateAccount.this, MatchingAlgorithm.class);
         intent.putExtra(MainActivity.USER_MATCHING_ALGO_STRING, user);
@@ -154,6 +160,13 @@ public class CreateAccount extends AppCompatActivity {
     }
 
     public void backButton(View view) {
+
         finish();
     }
+
+    private void applyBackground() {
+        Drawable background = ContextCompat.getDrawable(this, backgroundResources[currentBackgroundIndex]);
+        mainLayout.setBackground(background);
+    }
+
 }

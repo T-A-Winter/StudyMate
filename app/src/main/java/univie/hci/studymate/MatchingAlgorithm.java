@@ -40,6 +40,14 @@ public class MatchingAlgorithm extends AppCompatActivity {
 
     private ConstraintLayout mainLayout;
 
+    private int currentBackgroundIndex = 0;
+    private int[] backgroundResources = {
+            R.drawable.background_gradient,
+            R.drawable.background_gradient_other,
+            R.drawable.background_gradient_second,
+            R.drawable.background_gradient_third
+    };
+
 
 
 
@@ -61,12 +69,9 @@ public class MatchingAlgorithm extends AppCompatActivity {
         // prompt fist matched user
         promptFirstUser();
 
-        boolean isOldBackground = getSharedPreferences("prefs", MODE_PRIVATE).getBoolean("isOldBackground", true);
-        Drawable background = isOldBackground ?
-                ContextCompat.getDrawable(this, R.drawable.background_gradient) :
-                ContextCompat.getDrawable(this, R.drawable.background_gradient_other);
-        mainLayout.setBackground(background);
 
+        currentBackgroundIndex = getSharedPreferences("prefs", MODE_PRIVATE).getInt("backgroundIndex", 0);
+        applyBackground();
 
 
     }
@@ -209,5 +214,10 @@ public class MatchingAlgorithm extends AppCompatActivity {
         Glide.with(this)
                 .load(url)
                 .into(profilePicture);
+    }
+
+    private void applyBackground() {
+        Drawable background = ContextCompat.getDrawable(this, backgroundResources[currentBackgroundIndex]);
+        mainLayout.setBackground(background);
     }
 }

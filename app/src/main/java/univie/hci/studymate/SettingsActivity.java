@@ -25,7 +25,13 @@ public class SettingsActivity extends AppCompatActivity {
 
     private ConstraintLayout mainLayout;
     private ImageView changeBackgroundButton;
-    private boolean isOldBackground;
+    private int currentBackgroundIndex = 0;
+    private int[] backgroundResources = {
+            R.drawable.background_gradient,
+            R.drawable.background_gradient_other,
+            R.drawable.background_gradient_second,
+            R.drawable.background_gradient_third
+    };
 
 
 
@@ -38,14 +44,16 @@ public class SettingsActivity extends AppCompatActivity {
         mainLayout = findViewById(R.id.main_layout);
         changeBackgroundButton = findViewById(R.id.changeBackgroundButton);
 
-        isOldBackground = getSharedPreferences("prefs", MODE_PRIVATE).getBoolean("isOldBackground", true);
-        updateBackground();
+
+        currentBackgroundIndex = getSharedPreferences("prefs", MODE_PRIVATE).getInt("backgroundIndex", 0);
+        applyBackground();
 
         changeBackgroundButton.setOnClickListener(v -> {
-            isOldBackground = !isOldBackground;
-            getSharedPreferences("prefs", MODE_PRIVATE).edit().putBoolean("isOldBackground", isOldBackground).apply();
-            updateBackground();
+            currentBackgroundIndex = (currentBackgroundIndex + 1) % backgroundResources.length;
+            getSharedPreferences("prefs", MODE_PRIVATE).edit().putInt("backgroundIndex", currentBackgroundIndex).apply();
+            applyBackground();
         });
+
 
 
 
@@ -79,23 +87,14 @@ public class SettingsActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        //dodano
-        boolean isOldBackground = getSharedPreferences("prefs", MODE_PRIVATE).getBoolean("isOldBackground", true);
-        Drawable background = isOldBackground ?
-                ContextCompat.getDrawable(this, R.drawable.background_gradient) :
-                ContextCompat.getDrawable(this, R.drawable.background_gradient_other);
-        mainLayout.setBackground(background);
 
 
     }
 
-    private void updateBackground() {
-        Drawable background = isOldBackground ?
-                ContextCompat.getDrawable(this, R.drawable.background_gradient) :
-                ContextCompat.getDrawable(this, R.drawable.background_gradient_other);
-        mainLayout.setBackground(background);
-    }
-
+private void applyBackground() {
+    Drawable background = ContextCompat.getDrawable(this, backgroundResources[currentBackgroundIndex]);
+    mainLayout.setBackground(background);
+}
     private User getUserFromIntent() {
         Intent intent = getIntent();
         User user = intent.getParcelableExtra(MainActivity.USER_MATCHING_ALGO_STRING);

@@ -19,6 +19,14 @@ public class LoginEmail extends AppCompatActivity {
     //dodano
     private ConstraintLayout mainLayout;
 
+    private int currentBackgroundIndex = 0;
+    private int[] backgroundResources = {
+            R.drawable.background_gradient,
+            R.drawable.background_gradient_other,
+            R.drawable.background_gradient_second,
+            R.drawable.background_gradient_third
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,29 +40,40 @@ public class LoginEmail extends AppCompatActivity {
         submitLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // prüft ob daten gültig sind bzw. felder leer sind "validateCredentials
-                if (checkInputs(emailEditText.getText().toString(), passwordEditText.getText().toString())) {
+                String email = emailEditText.getText().toString();
+                String password = passwordEditText.getText().toString();
+                if (checkInputs(email, password)) {
                     Intent intent = new Intent(LoginEmail.this, MatchingAlgorithm.class);
                     startActivity(intent);
                 } else {
-                    emailEditText.setError("Email cant be empty");
-                    passwordEditText.setError("Password cant be empty");
+                    emailEditText.setError("Email can't be empty");
+                    passwordEditText.setError("Password can't be empty");
                 }
             }
         });
-    //dodano
-        boolean isOldBackground = getSharedPreferences("prefs", MODE_PRIVATE).getBoolean("isOldBackground", true);
-        Drawable background = isOldBackground ?
-                ContextCompat.getDrawable(this, R.drawable.background_gradient) :
-                ContextCompat.getDrawable(this, R.drawable.background_gradient_other);
-        mainLayout.setBackground(background);
+
+        currentBackgroundIndex = getSharedPreferences("prefs", MODE_PRIVATE).getInt("backgroundIndex", 0);
+        applyBackground();
+
+
     }
 
-    //immer richtig ausser email und pw felder leer
+    //always true except email and pw empty
     private boolean checkInputs(String email, String password) {
         return !email.isEmpty() && !password.isEmpty();
     }
 
+
+    private void applyBackground() {
+        Drawable background = ContextCompat.getDrawable(this, backgroundResources[currentBackgroundIndex]);
+        mainLayout.setBackground(background);
+    }
+
+    private void startSearch(User user) {
+        Intent intent = new Intent(LoginEmail.this, MatchingAlgorithm.class);
+        intent.putExtra(MainActivity.USER_MATCHING_ALGO_STRING, user);
+        startActivity(intent);
+    }
 
 }
 

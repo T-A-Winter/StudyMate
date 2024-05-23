@@ -20,7 +20,15 @@ public class MainActivity extends AppCompatActivity {
     private ConstraintLayout mainLayout;
     private ImageView changeBackgroundButton;
 
-    private boolean isOldBackground ; // DODATI OVO DESNO = true;
+    private int currentBackgroundIndex = 0;
+    // background drawable resources array,  4 colors
+    private int[] backgroundResources = {
+            R.drawable.background_gradient,
+            R.drawable.background_gradient_other,
+            R.drawable.background_gradient_second,
+            R.drawable.background_gradient_third
+
+    };
 
 
     @Override
@@ -33,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
         createAccountButton = findViewById(R.id.createAccountButton);
         loginEmailButton = findViewById(R.id.loginEmailButton);
         changeBackgroundButton = findViewById(R.id.changeBackgroundButton);
+
+        applyBackground();
 
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,32 +60,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-//ovo dole komentar stari za boju backgrund
-      /* changeBackgroundButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isOldBackground) {
-                    Drawable altBackground = ContextCompat.getDrawable(MainActivity.this, R.drawable.background_gradient_other);
-                    mainLayout.setBackground(altBackground);
-                } else {
-                    Drawable originalBackground = ContextCompat.getDrawable(MainActivity.this, R.drawable.background_gradient);
-                    mainLayout.setBackground(originalBackground);
-                }
-                isOldBackground = !isOldBackground;
-            }
-        });*/
 
+    //change button click
         changeBackgroundButton.setOnClickListener(v -> {
-            isOldBackground = !isOldBackground;
-            getSharedPreferences("prefs", MODE_PRIVATE).edit().putBoolean("isOldBackground", isOldBackground).apply();
+            currentBackgroundIndex = (currentBackgroundIndex + 1) % backgroundResources.length;
+            getSharedPreferences("prefs", MODE_PRIVATE).edit().putInt("backgroundIndex", currentBackgroundIndex).apply();
             updateBackground();
         });
-    }
 
+        // last saved background
+        currentBackgroundIndex = getSharedPreferences("prefs", MODE_PRIVATE).getInt("backgroundIndex", 0);
+        updateBackground();
+    }
+    //update background drawable
     private void updateBackground() {
-        Drawable background = isOldBackground ?
-                ContextCompat.getDrawable(this, R.drawable.background_gradient) :
-                ContextCompat.getDrawable(this, R.drawable.background_gradient_other);
+        Drawable background = ContextCompat.getDrawable(this, backgroundResources[currentBackgroundIndex]);
         mainLayout.setBackground(background);
     }
 
@@ -88,5 +87,10 @@ public class MainActivity extends AppCompatActivity {
         // User user; TODO: get the infos for a new user and create the user
         // intent.putExtra(USER_MATCHING_ALGO_STRING, user);
         startActivity(intent);
+    }
+    //apply this saved background
+    private void applyBackground() {
+        Drawable background = ContextCompat.getDrawable(this, backgroundResources[currentBackgroundIndex]);
+        mainLayout.setBackground(background);
     }
 }
