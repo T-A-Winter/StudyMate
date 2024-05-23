@@ -20,7 +20,8 @@ public class MainActivity extends AppCompatActivity {
     private ConstraintLayout mainLayout;
     private ImageView changeBackgroundButton;
 
-    private boolean isOldBackground = true;
+    private boolean isOldBackground ; // DODATI OVO DESNO = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        changeBackgroundButton.setOnClickListener(new View.OnClickListener() {
+//ovo dole komentar stari za boju backgrund
+      /* changeBackgroundButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isOldBackground) {
@@ -63,8 +65,23 @@ public class MainActivity extends AppCompatActivity {
                 }
                 isOldBackground = !isOldBackground;
             }
+        });*/
+
+        changeBackgroundButton.setOnClickListener(v -> {
+            isOldBackground = !isOldBackground;
+            getSharedPreferences("prefs", MODE_PRIVATE).edit().putBoolean("isOldBackground", isOldBackground).apply();
+            updateBackground();
         });
     }
+
+    private void updateBackground() {
+        Drawable background = isOldBackground ?
+                ContextCompat.getDrawable(this, R.drawable.background_gradient) :
+                ContextCompat.getDrawable(this, R.drawable.background_gradient_other);
+        mainLayout.setBackground(background);
+    }
+
+
 
     //TODO: eventuell löschen weil man aus CreateAccount.java auf MatchingAlgorithm zugreifen kann
     private void startSearch() {

@@ -1,6 +1,7 @@
 package univie.hci.studymate;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -16,6 +17,8 @@ import android.widget.Toast;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 
@@ -32,6 +35,9 @@ public class CreateAccount extends AppCompatActivity {
     private Spinner tagSpinner;
     private EditText nameEditText, emailEditText, phonenumberEditText, specialRequestsEditText;
     private List<Tag> selectedTags = new ArrayList<>();
+
+    //dodano
+    private ConstraintLayout mainLayout;
 
     private final ActivityResultLauncher<Intent> mGetContent = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             result -> {
@@ -50,6 +56,7 @@ public class CreateAccount extends AppCompatActivity {
         imageViewPhoto = findViewById(R.id.imageViewPhoto);
         Button addPhotoButton = findViewById(R.id.addPhotoButton);
         Button startMatchingButton = findViewById(R.id.startMatchingButton);
+
 
         addPhotoButton.setOnClickListener(v -> openGallery());
 
@@ -82,6 +89,8 @@ public class CreateAccount extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
                 selectedUniversity = null;
             }
+
+
         });
 
         tagSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -102,6 +111,14 @@ public class CreateAccount extends AppCompatActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
+
+        //dodano ovo dole
+        boolean isOldBackground = getSharedPreferences("prefs", MODE_PRIVATE).getBoolean("isOldBackground", true);
+        Drawable background = isOldBackground ?
+                ContextCompat.getDrawable(this, R.drawable.background_gradient) :
+                ContextCompat.getDrawable(this, R.drawable.background_gradient_other);
+        mainLayout.setBackground(background);
+
     }
 
     private void openGallery() {
@@ -126,6 +143,8 @@ public class CreateAccount extends AppCompatActivity {
         emailEditText = findViewById(R.id.emailEditText);
         phonenumberEditText = findViewById(R.id.phonenumberEditText);
         specialRequestsEditText = findViewById(R.id.specialRequestsEditText);
+        mainLayout = findViewById(R.id.main_layout); //DODANO I OVO
+
     }
 
     private void startSearch(User user) {
