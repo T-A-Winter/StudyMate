@@ -29,13 +29,11 @@ public class MainActivity extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
-        // Initialize views
         mainLayout = findViewById(R.id.main_layout);
         createAccountButton = findViewById(R.id.createAccountButton);
         loginEmailButton = findViewById(R.id.loginEmailButton);
         changeBackgroundButton = findViewById(R.id.changeBackgroundButton);
 
-        // Set up click listeners
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

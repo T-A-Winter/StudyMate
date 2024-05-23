@@ -2,11 +2,14 @@ package univie.hci.studymate;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -20,12 +23,33 @@ public class SettingsActivity extends AppCompatActivity {
     private ImageView chatButton , matchingButton , calendarButton, friendsListButton;
     private User user;
 
+    private ConstraintLayout mainLayout;
+    private ImageView changeBackgroundButton;
+    private boolean isOldBackground;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_settings);
+
+        mainLayout = findViewById(R.id.main_layout);
+        changeBackgroundButton = findViewById(R.id.changeBackgroundButton);
+
+        isOldBackground = getSharedPreferences("prefs", MODE_PRIVATE).getBoolean("isOldBackground", true);
+        updateBackground();
+
+        changeBackgroundButton.setOnClickListener(v -> {
+            isOldBackground = !isOldBackground;
+            getSharedPreferences("prefs", MODE_PRIVATE).edit().putBoolean("isOldBackground", isOldBackground).apply();
+            updateBackground();
+        });
+
+
+
+
 
         // getting user
         user = getUserFromIntent();
@@ -55,7 +79,21 @@ public class SettingsActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        //dodano
+        boolean isOldBackground = getSharedPreferences("prefs", MODE_PRIVATE).getBoolean("isOldBackground", true);
+        Drawable background = isOldBackground ?
+                ContextCompat.getDrawable(this, R.drawable.background_gradient) :
+                ContextCompat.getDrawable(this, R.drawable.background_gradient_other);
+        mainLayout.setBackground(background);
 
+
+    }
+
+    private void updateBackground() {
+        Drawable background = isOldBackground ?
+                ContextCompat.getDrawable(this, R.drawable.background_gradient) :
+                ContextCompat.getDrawable(this, R.drawable.background_gradient_other);
+        mainLayout.setBackground(background);
     }
 
     private User getUserFromIntent() {

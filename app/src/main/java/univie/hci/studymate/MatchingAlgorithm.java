@@ -1,6 +1,7 @@
 package univie.hci.studymate;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -8,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -35,12 +38,20 @@ public class MatchingAlgorithm extends AppCompatActivity {
     private User currentlyViewedUser;
     private ImageView settingsButton;
 
+    private ConstraintLayout mainLayout;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_matching_algorithm);
+
+        mainLayout = findViewById(R.id.main_layout);
+
 
         // get the user
         user = getUserFromIntent();
@@ -49,6 +60,15 @@ public class MatchingAlgorithm extends AppCompatActivity {
 
         // prompt fist matched user
         promptFirstUser();
+
+        boolean isOldBackground = getSharedPreferences("prefs", MODE_PRIVATE).getBoolean("isOldBackground", true);
+        Drawable background = isOldBackground ?
+                ContextCompat.getDrawable(this, R.drawable.background_gradient) :
+                ContextCompat.getDrawable(this, R.drawable.background_gradient_other);
+        mainLayout.setBackground(background);
+
+
+
     }
 
     public void settingsButton(View view) {
