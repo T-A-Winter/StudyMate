@@ -19,7 +19,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 public class SettingsActivity extends AppCompatActivity {
-
+    static final private String USER_MATCHING_ALGO_STRING = MainActivity.USER_MATCHING_ALGO_STRING;
     private ImageView chatButton , matchingButton , calendarButton, friendsListButton;
     private User user;
 
@@ -70,8 +70,11 @@ public class SettingsActivity extends AppCompatActivity {
         });
 
         calendarButton = findViewById(R.id.calendarButton);
+        //Hey, I've changed it so that it would lead to calendar
+        // hope, you don't mind
         calendarButton.setOnClickListener(v -> {
-            Intent intent = new Intent(SettingsActivity.this, MatchingAlgorithm.class);
+            Intent intent = new Intent(SettingsActivity.this, Calendar.class);
+            intent.putExtra(USER_MATCHING_ALGO_STRING, user);
             startActivity(intent);
         });
 
