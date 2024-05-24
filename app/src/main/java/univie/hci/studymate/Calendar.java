@@ -32,7 +32,7 @@ public class Calendar  extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_calendar);
+        setContentView(R.layout.alendar_activity);
 
         mainLayout = findViewById(R.id.main_layout);
 
