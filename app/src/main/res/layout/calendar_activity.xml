@@ -65,6 +65,28 @@
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/NameEvent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:text="Name Your Event"
+                    android:textSize="16sp" />
+
+                <EditText
+                    android:id="@+id/EventTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/edit_text_background"
+                    android:hint="Your Title"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/imageViewPhoto" />
+
                 <CalendarView
                     android:id="@+id/popup_calendar"
                     android:layout_width="match_parent"
@@ -112,28 +134,6 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:timePickerMode="spinner" />
-
-                <TextView
-                    android:id="@+id/NameEvent"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:paddingLeft="20dp"
-                    android:paddingRight="20dp"
-                    android:text="Name Your Event"
-                    android:textSize="16sp" />
-
-                <EditText
-                    android:id="@+id/EventTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    android:layout_marginBottom="20dp"
-                    android:background="@drawable/edit_text_background"
-                    android:hint="Your Title"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/imageViewPhoto" />
 
                 <Button
                     android:id="@+id/CreateEvent"
