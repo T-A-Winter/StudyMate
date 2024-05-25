@@ -128,18 +128,12 @@ public class CalendarView extends AppCompatActivity {
         });
 
 
-
-
         popupCalendar.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
             selectedCalendar.set(year, month, dayOfMonth);
-            // Update any other necessary data based on the selected date
-            // updateEventData(selectedCalendar);
         });
 
         //saves a created Event in Database stored locally on a device (not connected to the user account)
         //In future can be used to temporary store events while offline
-        // Create a listener for the popupCalendar to update the date-related data
-        // Create a listener for the popupCalendar to update the date-related data
         CreateEventButton.setOnClickListener(v -> {
             String title = TitleText.getText().toString();
 
