@@ -3,7 +3,11 @@ package univie.hci.studymate;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,8 +18,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
-public class Calendar  extends AppCompatActivity {
-
+public class CalendarView extends AppCompatActivity {
+    private Button newEventButton, GoBackButton;
+    private LinearLayout CalendarLayout, ButtonsLayout;
+    private ScrollView EventsScroll, PopUp;
+    private android.widget.CalendarView CalendarView;
+    private java.util.Calendar calendar;
     private ImageView settingsButton;
     private User user;
     static final private String USER_MATCHING_ALGO_STRING = MainActivity.USER_MATCHING_ALGO_STRING;
@@ -32,9 +40,24 @@ public class Calendar  extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.alendar_activity);
+        setContentView(R.layout.calendar_activity);
 
-        mainLayout = findViewById(R.id.main_layout);
+        initialization();
+
+        //listeners
+        newEventButton.setOnClickListener(v -> {
+            CalendarLayout.setVisibility(View.GONE);
+            EventsScroll.setVisibility(View.GONE);
+            ButtonsLayout.setVisibility(View.GONE);
+            PopUp.setVisibility(View.VISIBLE);
+        });
+
+        GoBackButton.setOnClickListener(v -> {
+            PopUp.setVisibility(View.GONE);
+            CalendarLayout.setVisibility(View.VISIBLE);
+            EventsScroll.setVisibility(View.VISIBLE);
+            ButtonsLayout.setVisibility(View.VISIBLE);
+        });
 
         currentBackgroundIndex = getSharedPreferences("prefs", MODE_PRIVATE).getInt("backgroundIndex", 0);
         applyBackground();
@@ -43,11 +66,21 @@ public class Calendar  extends AppCompatActivity {
 
         settingsButton = findViewById(R.id.settingsButton);
         settingsButton.setOnClickListener(v -> {
-            Intent intent = new Intent(Calendar.this, SettingsActivity.class);
+            Intent intent = new Intent(univie.hci.studymate.CalendarView.this, SettingsActivity.class);
             intent.putExtra(USER_MATCHING_ALGO_STRING, user);
             startActivity(intent);
         });
 
+    }
+
+    private void initialization(){
+        mainLayout = findViewById(R.id.main_layout);
+        CalendarLayout = findViewById(R.id.calendar_layout);
+        EventsScroll = findViewById(R.id.EventsScroll);
+        ButtonsLayout = findViewById(R.id.buttons_layout);
+        newEventButton = findViewById(R.id.for_yourself);
+        PopUp = findViewById(R.id.scroll_pop_up);
+        GoBackButton = findViewById(R.id.GoBack);
     }
 
     private void applyBackground() {

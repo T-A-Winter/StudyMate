@@ -23,7 +23,6 @@ import androidx.core.content.ContextCompat;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class CreateAccount extends AppCompatActivity {
@@ -145,7 +144,7 @@ public class CreateAccount extends AppCompatActivity {
         tagAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         tagSpinner.setAdapter(tagAdapter);
 
-        nameEditText = findViewById(R.id.usernameEditText);
+        nameEditText = findViewById(R.id.UsernameEditText);
         emailEditText = findViewById(R.id.emailEditText);
         phonenumberEditText = findViewById(R.id.phonenumberEditText);
         specialRequestsEditText = findViewById(R.id.specialRequestsEditText);

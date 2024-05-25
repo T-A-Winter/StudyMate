@@ -15,14 +15,14 @@ public class EventEntity {
     @ColumnInfo(name = "date")
     private String date;
 
-    @ColumnInfo(name = "description")
-    private String description;
+    @ColumnInfo(name = "time")
+    private String time;
 
     // Constructor
-    public EventEntity(String title, String date, String description) {
+    public EventEntity(String title, String date, String time) {
         this.title = title;
         this.date = date;
-        this.description = description;
+        this.time = time;
     }
 
     // Getters and setters
@@ -50,11 +50,12 @@ public class EventEntity {
         this.date = date;
     }
 
-    public String getDescription() {
-        return description;
+    public String getTime() {
+        return time;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setTime(String date) {
+        this.time = time;
     }
+
 }

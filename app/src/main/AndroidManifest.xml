@@ -29,7 +29,7 @@
             android:name=".MatchingAlgorithm"
             android:exported="false" />
         <activity
-            android:name=".Calendar"
+            android:name=".CalendarView"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

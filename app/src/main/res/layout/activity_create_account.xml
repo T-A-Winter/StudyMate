@@ -31,7 +31,7 @@
                 android:padding="16dp">
 
                 <TextView
-                    android:id="@+id/titleTextView"
+                    android:id="@+id/CreateAccount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Create new account"
@@ -46,7 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Add Photo"
-                    app:layout_constraintTop_toBottomOf="@id/titleTextView"
+                    app:layout_constraintTop_toBottomOf="@id/CreateAccount"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     android:layout_marginTop="16dp"/>
@@ -62,7 +62,7 @@
                     android:layout_marginTop="8dp"/>
 
                 <EditText
-                    android:id="@+id/usernameEditText"
+                    android:id="@+id/UsernameEditText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
@@ -84,7 +84,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/usernameEditText" />
+                    app:layout_constraintTop_toBottomOf="@id/UsernameEditText" />
 
                 <EditText
                     android:id="@+id/emailEditText"
@@ -183,7 +183,7 @@
                     android:layout_height="49dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toEndOf="@+id/titleTextView"
+                    app:layout_constraintStart_toEndOf="@+id/CreateAccount"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/logo" />
 

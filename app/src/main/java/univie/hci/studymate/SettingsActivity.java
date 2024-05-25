@@ -1,6 +1,5 @@
 package univie.hci.studymate;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -10,9 +9,6 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -73,7 +69,7 @@ public class SettingsActivity extends AppCompatActivity {
         //Hey, I've changed it so that it would lead to calendar
         // hope, you don't mind
         calendarButton.setOnClickListener(v -> {
-            Intent intent = new Intent(SettingsActivity.this, Calendar.class);
+            Intent intent = new Intent(SettingsActivity.this, CalendarView.class);
             intent.putExtra(USER_MATCHING_ALGO_STRING, user);
             startActivity(intent);
         });
