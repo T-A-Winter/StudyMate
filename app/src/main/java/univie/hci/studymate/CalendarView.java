@@ -33,7 +33,8 @@ import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.Executors;
 
-//TODO: I need to implement send a meeting vote
+//TODO: I need to implement send a meeting vote + restrictions for creation of an event
+//TODO: because now you can add an event that starts later than it Ends or happens in the past
 //Firstly, I don't really understand how to
 //Secondly, For that I will need to see Chat implementation, which
 //at the moment is absent
