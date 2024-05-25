@@ -12,17 +12,21 @@ public class EventEntity {
     @ColumnInfo(name = "title")
     private String title;
 
+    @ColumnInfo(name = "StartTime")
+    private String startTime;
+
+    @ColumnInfo(name = "EndTime")
+    private String endTime;
+
     @ColumnInfo(name = "date")
     private String date;
 
-    @ColumnInfo(name = "time")
-    private String time;
-
     // Constructor
-    public EventEntity(String title, String date, String time) {
+    public EventEntity(String title, String startTime, String endTime, String date) {
         this.title = title;
+        this.startTime = startTime;
+        this.endTime = endTime;
         this.date = date;
-        this.time = time;
     }
 
     // Getters and setters
@@ -41,6 +45,21 @@ public class EventEntity {
     public void setTitle(String title) {
         this.title = title;
     }
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
 
     public String getDate() {
         return date;
@@ -50,12 +69,6 @@ public class EventEntity {
         this.date = date;
     }
 
-    public String getTime() {
-        return time;
-    }
 
-    public void setTime(String date) {
-        this.time = time;
-    }
 
 }

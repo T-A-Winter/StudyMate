@@ -241,21 +241,23 @@
         app:layout_constraintTop_toBottomOf="@id/calendar_layout">
 
         <LinearLayout
+            android:id="@+id/EventScrollLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/calendar_background"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/NoIventsText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="You have no plans for selected date :)"
-                android:textSize="16sp" />
-
-        </LinearLayout>
+            android:orientation="vertical"/>
     </ScrollView>
+
+    <TextView
+        android:id="@+id/NoIventsText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:text="You have no plans for selected date :)"
+        android:textSize="16sp"
+        android:visibility="gone"
+        tools:layout_editor_absoluteX="33dp"
+        tools:layout_editor_absoluteY="462dp" />
 
     <LinearLayout
         android:id="@+id/buttons_layout"
