@@ -1,46 +1,54 @@
 package univie.hci.studymate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
-import java.util.Collection;
-import java.util.Objects;
-import java.util.UUID;
-public class Chat {
+public class Chat implements Comparable<Chat> {
+    private List<User> participants;
+    private List<Message> messages;
 
-    private UUID chatId = UUID.randomUUID();
-    private Collection<User> chatters;
-    private Collection<Message> messages;
+    public Chat() {
+        this.participants = new ArrayList<>();
+        this.messages = new ArrayList<>();
+    }
 
-    /**
-     * placeholder methode. We need to figure out how to show the chats in the view
-     * */
-    Collection<Message> openChat() {
+    public Chat(List<User> participants, List<Message> messages) {
+        this.participants = participants;
+        this.messages = messages;
+    }
+
+    public List<User> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(List<User> participants) {
+        this.participants = participants;
+    }
+
+    public List<Message> getMessages() {
         return messages;
     }
 
-    public UUID getChatId() {
-        return chatId;
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
     }
 
-    public Collection<User> getChatters() {
-        return chatters;
+    public void addMessage(Message message) {
+        messages.add(message);
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Chat chat = (Chat) o;
-        return Objects.equals(chatId, chat.chatId);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(chatId);
+    // Method to get the timestamp of the last message
+    public LocalDateTime getLastMessageTimestamp() {
+        if (!messages.isEmpty()) {
+            return messages.get(messages.size() - 1).getDateTime();
+        }
+        // Return a default timestamp if there are no messages
+        return LocalDateTime.MIN;
     }
 
     @Override
-    public String toString() {
-        return "Chat{" +
-                "chatId=" + chatId +
-                '}';
+    public int compareTo(Chat other) {
+        // Compare chats based on the timestamp of the last message
+        return other.getLastMessageTimestamp().compareTo(this.getLastMessageTimestamp());
     }
 }

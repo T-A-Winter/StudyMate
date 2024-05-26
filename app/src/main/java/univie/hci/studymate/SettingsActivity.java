@@ -61,7 +61,7 @@ public class SettingsActivity extends AppCompatActivity {
         // TODO: views. Otherwise, user object is lost.
         chatButton = findViewById(R.id.chatButton);
         chatButton.setOnClickListener(v -> {
-            Intent intent = new Intent(SettingsActivity.this, Chat.class);
+            Intent intent = new Intent(SettingsActivity.this, ChatListActivity.class);
             startActivity(intent);
         });
 
@@ -82,7 +82,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         friendsListButton = findViewById(R.id.friendsListButton);
         friendsListButton.setOnClickListener(v -> {
-            Intent intent = new Intent(SettingsActivity.this, MatchingAlgorithm.class);
+            Intent intent = new Intent(SettingsActivity.this, FriendListActivity.class);
             startActivity(intent);
         });
 
