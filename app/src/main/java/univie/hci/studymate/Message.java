@@ -1,19 +1,36 @@
 package univie.hci.studymate;
 
 import java.time.LocalDateTime;
-import java.util.Comparator;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-
 public class Message implements Comparable<Message> {
-    private LocalDateTime dateTime; // (yyyy-MM-dd-HH-mm-ss-ns)
+    private LocalDateTime dateTime;
     private User from;
     private String message;
 
     public Message(User from, String message) {
         this.from = from;
         this.message = message;
-        this.dateTime = LocalDateTime.now();
+        this.dateTime = LocalDateTime.now(ZoneId.of("Europe/Vienna"));
+    }
+
+    public User getFrom() {
+        return from;
+    }
+
+    public String getMessageContent() {
+        return message;
+    }
+
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public String getTimestamp() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        return dateTime.format(formatter);
     }
 
     @Override
@@ -26,7 +43,9 @@ public class Message implements Comparable<Message> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Message message1 = (Message) o;
-        return Objects.equals(dateTime, message1.dateTime) && Objects.equals(from, message1.from) && Objects.equals(message, message1.message);
+        return Objects.equals(dateTime, message1.dateTime) &&
+                Objects.equals(from, message1.from) &&
+                Objects.equals(message, message1.message);
     }
 
     @Override

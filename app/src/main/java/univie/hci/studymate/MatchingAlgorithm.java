@@ -11,9 +11,6 @@ import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.bumptech.glide.Glide;
 import com.github.chrisbanes.photoview.PhotoView;
@@ -37,9 +34,7 @@ public class MatchingAlgorithm extends AppCompatActivity {
     private Queue<User> matchedUsers;
     private User currentlyViewedUser;
     private ImageView settingsButton;
-
     private ConstraintLayout mainLayout;
-
     private int currentBackgroundIndex = 0;
     private int[] backgroundResources = {
             R.drawable.background_gradient,
@@ -48,18 +43,13 @@ public class MatchingAlgorithm extends AppCompatActivity {
             R.drawable.background_gradient_third
     };
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_matching_algorithm);
 
         mainLayout = findViewById(R.id.main_layout);
-
 
         // get the user
         user = getUserFromIntent();
@@ -69,11 +59,8 @@ public class MatchingAlgorithm extends AppCompatActivity {
         // prompt fist matched user
         promptFirstUser();
 
-
         currentBackgroundIndex = getSharedPreferences("prefs", MODE_PRIVATE).getInt("backgroundIndex", 0);
         applyBackground();
-
-
     }
 
     public void settingsButton(View view) {
@@ -122,7 +109,7 @@ public class MatchingAlgorithm extends AppCompatActivity {
                     University randomUniversity = University.values()[random.nextInt(University.values().length)];
 
                     // selecting 1-3 rand Tags
-                    List<Tag> tagList = random.ints(1,4)
+                    List<Tag> tagList = random.ints(1, 4)
                             .mapToObj(n -> Tag.values()[random.nextInt(Tag.values().length)])
                             .distinct()
                             .limit(3)
@@ -139,7 +126,8 @@ public class MatchingAlgorithm extends AppCompatActivity {
     }
 
     public void matchedWithUser(View view) {
-        user.addFriend(currentlyViewedUser);
+        // Add the matched user to the friend list
+        FriendList.getInstance(getApplicationContext()).addFriend(currentlyViewedUser);
         pollUsers();
         promptMatchedUser();
     }
@@ -182,7 +170,6 @@ public class MatchingAlgorithm extends AppCompatActivity {
         String tags = currentlyViewedUser.getTags().stream()
                 .map(Tag::name)
                 .collect(Collectors.joining(", "));
-
 
         String tagsTextPrefix = "Tags: ";
         if (tags.isEmpty()) {

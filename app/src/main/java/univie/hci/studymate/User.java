@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-import java.util.UUID;
 
 public class User implements Parcelable {
     private String name;
@@ -16,13 +15,11 @@ public class User implements Parcelable {
     private String email; // Is the ID of the user
     private Integer phoneNumber = 0;
     private String biography = "";
-    private FriendList friends = new FriendList();
-    private ChatList chats;
-    /**
-     * Base Ctor. <br>
-     * This are the least amount of fields a new user needs to fill out before starting.<br>
-     * After filling out these 3 fields the "start search" button should appear.
-     * */
+    //private FriendList friends = new FriendList(); // Removed direct instantiation
+    public String getProfilePictureUrl() {
+
+        return "https://example.com/profile_picture.jpg";
+    }
     public User(String name, University university, Collection<Tag> tags, String email) {
         this.name = name;
         this.university = university;
@@ -30,11 +27,6 @@ public class User implements Parcelable {
         this.email = email;
     }
 
-    /**
-     * This Ctor should not be used. Its only for testing and debugging. <br>
-     * If a new user is created, it should use User(String, University, Collection<Tag>) Ctor. <br>
-     * If a user fills out the other fields, the field should be filled out with the setters.
-     * */
     public User(String name, University university, Collection<Tag> tags, String email, int phoneNumber, String biography) {
         this.name = name;
         this.university = university;
@@ -85,12 +77,11 @@ public class User implements Parcelable {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getId() {
+        return name; // Assuming name is user ID
+    }
     public void setBiography(String biography) {
         this.biography = biography;
-    }
-
-    public void addFriend(User newFriend) {
-        this.friends.addFriend(newFriend);
     }
 
     public Collection<Tag> getTags() {
@@ -100,29 +91,7 @@ public class User implements Parcelable {
     public University getUniversity() { return university; }
     public String getBiography() { return biography; }
     public String getName() { return name; }
-
-    /**
-     * should open Chat view
-     * TODO: IT IS NOT DONE
-     * TODO: architecture of chat and how to open chat need to be better implemented!!!!!!!
-     * NOTE: Maybe when user scrolls through chatlist, user selects chat, and we than have access to UUID
-     * */
-    void openChat(UUID chat) {
-        chats.openChat(chat);
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", university=" + university +
-                ", tags=" + tags +
-                ", email='" + email + '\'' +
-                ", phoneNumber=" + phoneNumber +
-                ", biography='" + biography + '\'' +
-                ", friends=" + friends +
-                '}';
-    }
+    public String getEmail() { return email; }
 
     @Override
     public boolean equals(Object o) {
