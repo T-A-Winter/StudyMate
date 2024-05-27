@@ -3,13 +3,16 @@ package univie.hci.studymate;
 import static univie.hci.studymate.MainActivity.USER_MATCHING_ALGO_STRING;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -21,11 +24,26 @@ public class ChatListActivity extends AppCompatActivity implements ChatListAdapt
     private RecyclerView chatListRecyclerView;
     private ChatListAdapter chatListAdapter;
     private ImageView settingsButton;
+    private RelativeLayout mainToolbar;
+    private RecyclerView chatList;
+    private int currentBackgroundIndex = 0;
+    private int[] backgroundResources = {
+            R.drawable.background_gradient,
+            R.drawable.background_gradient_other,
+            R.drawable.background_gradient_second,
+            R.drawable.background_gradient_third
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_list);
+
+        // for color
+        mainToolbar = findViewById(R.id.main_toolbar);
+        chatList = findViewById(R.id.chat_list);
+        currentBackgroundIndex = getSharedPreferences("prefs", MODE_PRIVATE).getInt("backgroundIndex", 0);
+        applyBackground();
 
         chatListRecyclerView = findViewById(R.id.chat_list);
         chatListRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -69,5 +87,11 @@ public class ChatListActivity extends AppCompatActivity implements ChatListAdapt
         intent.putExtra("userId", message.getFrom().getId());
         intent.putExtra("userName", message.getFrom().getName());
         startActivity(intent);
+    }
+
+    private void applyBackground() {
+        Drawable background = ContextCompat.getDrawable(this, backgroundResources[currentBackgroundIndex]);
+        mainToolbar.setBackground(background);
+        chatList.setBackground(background);
     }
 }
