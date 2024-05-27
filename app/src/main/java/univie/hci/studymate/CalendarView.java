@@ -3,9 +3,7 @@ package univie.hci.studymate;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -29,10 +27,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
+import java.util.Objects;
 import java.util.concurrent.Executors;
 
 //TODO: I need to implement send a meeting vote + restrictions for creation of an event
@@ -42,7 +39,7 @@ import java.util.concurrent.Executors;
 //at the moment is absent
 
 public class CalendarView extends AppCompatActivity {
-    private Calendar selectedCalendar;
+    private Calendar selectedCalendar, selectedCalendar2;
     private TimePicker timePickerStart, timePickerEnd;
     private EditText TitleText;
     private AppDatabase CreatedEvents;
@@ -73,17 +70,17 @@ public class CalendarView extends AppCompatActivity {
         applyBackground();
         setListeners();
         applyRestrictions();
-
+        initializeDataFetch();
     }
 
     private void initialization(){
+        selectedCalendar2 = Calendar.getInstance();
         selectedCalendar = Calendar.getInstance();
         ActualCalendar  = findViewById(R.id.actual_calendar);
         timePickerStart = findViewById(R.id.timePickerStart);
         timePickerEnd = findViewById(R.id.timePickerEnd);
         popupCalendar = findViewById(R.id.popup_calendar);
-        TitleText = findViewById(R.id.EventTitle);selectedCalendar = Calendar.getInstance();
-        ActualCalendar  = findViewById(R.id.actual_calendar);
+        TitleText = findViewById(R.id.EventTitle);
         CreateEventButton = findViewById(R.id.CreateEvent);
         CreatedEvents = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "event-database-3").build();
         currentBackgroundIndex = getSharedPreferences("prefs", MODE_PRIVATE).getInt("backgroundIndex", 0);
@@ -132,9 +129,7 @@ public class CalendarView extends AppCompatActivity {
             startActivity(intent);
         });
 
-        popupCalendar.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
-            selectedCalendar.set(year, month, dayOfMonth);
-        });
+        popupCalendar.setOnDateChangeListener((view, year, month, dayOfMonth) -> selectedCalendar.set(year, month, dayOfMonth));
 
         //saves a created Event in Database stored locally on a device (not connected to the user account)
         //In future can be used to temporary store events while offline
@@ -193,12 +188,12 @@ public class CalendarView extends AppCompatActivity {
 
         ActualCalendar.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
             // Create a Calendar instance and set it to the selected date
-            Calendar selectedDate = Calendar.getInstance();
-            selectedDate.set(year, month, dayOfMonth);
+            selectedCalendar2.set(year, month, dayOfMonth);
+
 
             // Convert the selected date to a string in the format "yyyy-MM-dd"
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-            String selectedDateString = sdf.format(selectedDate.getTime());
+            String selectedDateString = sdf.format(selectedCalendar2.getTime());
 
             Executors.newSingleThreadExecutor().execute(() -> {
                 // Query the database for events on the selected date
@@ -211,23 +206,33 @@ public class CalendarView extends AppCompatActivity {
 
     //TODO: Make it look at least somewhat user friendly
     private void populateEvents(List<EventEntity> events) {
-        LinearLayout eventsLayout = findViewById(R.id.EventsScroll).findViewById(R.id.EventScrollLinearLayout);
+        LinearLayout eventsLayout = findViewById(R.id.EventsScroll).findViewById(R.id.allEvents);
         eventsLayout.removeAllViews(); // Clear the existing views
 
         if (events.isEmpty()) {
             // Show a message if there are no events for the selected date
-            TextView noEventsText = findViewById(R.id.NoIventsText);
-            noEventsText.setVisibility(View.VISIBLE);
+            LinearLayout noIvents = (LinearLayout) getLayoutInflater().inflate(R.layout.no_events_message, null);
+            eventsLayout.addView(noIvents);
         } else {
             // Populate the scroll section with events
             for (EventEntity event : events) {
-                TextView eventTextView = new TextView(this);
-                eventTextView.setLayoutParams(new LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
-                ));
-                eventTextView.setText(String.format("%s - %s - %s", event.getTitle(), event.getStartTime(),event.getEndTime()));
-                eventsLayout.addView(eventTextView);
+                LinearLayout eventLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.event_layout, null);
+
+                // Find TextViews inside the custom layout
+                TextView timeTextView = eventLayout.findViewById(R.id.timeTextView);
+                TextView titleTextView = eventLayout.findViewById(R.id.titleTextView);
+
+                // Set the time and title for each TextView
+                timeTextView.setText(String.format("%s - %s", event.getStartTime(), event.getEndTime()));
+
+                if(!TextUtils.isEmpty(event.getTitle())){
+                    titleTextView.setText(event.getTitle());
+                }else {
+                    titleTextView.setVisibility(View.GONE);
+                }
+
+                // Add the custom layout for the event to the eventsLayout
+                eventsLayout.addView(eventLayout);
             }
         }
     }
@@ -251,49 +256,43 @@ public class CalendarView extends AppCompatActivity {
         timePickerEnd.setCurrentHour(currentHour);
         timePickerEnd.setCurrentMinute(currentMinute);
 
-        timePickerStart.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-            @Override
-            public void onTimeChanged(TimePicker view, int startHour, int startMinute) {
-                int finishHour = timePickerEnd.getCurrentHour();
-                int finishMinute = timePickerEnd.getCurrentMinute();
+        timePickerStart.setOnTimeChangedListener((view, startHour, startMinute) -> {
+            int finishHour = timePickerEnd.getCurrentHour();
+            int finishMinute = timePickerEnd.getCurrentMinute();
 
-                if (isSameDate(selectedCalendar, Calendar.getInstance())){
-                    if(timePickerStart.getHour() < Calendar.getInstance().get(Calendar.HOUR_OF_DAY) ||
-                            (timePickerStart.getHour() < Calendar.getInstance().get(Calendar.HOUR_OF_DAY)&&  timePickerStart.getMinute()< Calendar.getInstance().get(Calendar.MINUTE))){
-                        timePickerStart.setCurrentHour(startHour);
-                        timePickerStart.setCurrentMinute(startMinute);
-                    }
+            if (isSameDate(selectedCalendar, Calendar.getInstance())){
+                if(timePickerStart.getHour() < Calendar.getInstance().get(Calendar.HOUR_OF_DAY) ||
+                        (timePickerStart.getHour() < Calendar.getInstance().get(Calendar.HOUR_OF_DAY)&&  timePickerStart.getMinute()< Calendar.getInstance().get(Calendar.MINUTE))){
+                    timePickerStart.setCurrentHour(startHour);
+                    timePickerStart.setCurrentMinute(startMinute);
                 }
+            }
 
-                if (startHour > finishHour || (startHour == finishHour && startMinute > finishMinute)) {
-                    timePickerEnd.setCurrentHour(startHour);
-                    timePickerEnd.setCurrentMinute(startMinute);
-                }
+            if (startHour > finishHour || (startHour == finishHour && startMinute > finishMinute)) {
+                timePickerEnd.setCurrentHour(startHour);
+                timePickerEnd.setCurrentMinute(startMinute);
             }
         });
 
-        timePickerEnd.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-            @Override
-            public void onTimeChanged(TimePicker view, int startHour, int startMinute) {
-                int finishHour = timePickerEnd.getCurrentHour();
-                int finishMinute = timePickerEnd.getCurrentMinute();
+        timePickerEnd.setOnTimeChangedListener((view, startHour, startMinute) -> {
+            int finishHour = timePickerEnd.getCurrentHour();
+            int finishMinute = timePickerEnd.getCurrentMinute();
 
-                if (isSameDate(selectedCalendar, Calendar.getInstance())){
-                    if(timePickerStart.getHour() < Calendar.getInstance().get(Calendar.HOUR_OF_DAY) ||
-                            (timePickerStart.getHour() < Calendar.getInstance().get(Calendar.HOUR_OF_DAY)&&  timePickerStart.getMinute()< Calendar.getInstance().get(Calendar.MINUTE))){
-                        timePickerStart.setCurrentHour(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
-                        timePickerStart.setCurrentMinute(Calendar.getInstance().get(Calendar.MINUTE));
-                    }
+            if (isSameDate(selectedCalendar, Calendar.getInstance())){
+                if(timePickerStart.getHour() < Calendar.getInstance().get(Calendar.HOUR_OF_DAY) ||
+                        (timePickerStart.getHour() < Calendar.getInstance().get(Calendar.HOUR_OF_DAY)&&  timePickerStart.getMinute()< Calendar.getInstance().get(Calendar.MINUTE))){
+                    timePickerStart.setCurrentHour(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
+                    timePickerStart.setCurrentMinute(Calendar.getInstance().get(Calendar.MINUTE));
                 }
+            }
 
-                if (startHour > finishHour || (startHour == finishHour && startMinute > finishMinute)) {
-                    timePickerEnd.setCurrentHour(startHour);
-                    timePickerEnd.setCurrentMinute(startMinute);
-                }
+            if (startHour > finishHour || (startHour == finishHour && startMinute > finishMinute)) {
+                timePickerEnd.setCurrentHour(startHour);
+                timePickerEnd.setCurrentMinute(startMinute);
             }
         });
 
-    };
+    }
 
     private boolean isSameDate(Calendar c1, Calendar c2){
         if (c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR)&&
@@ -302,8 +301,21 @@ public class CalendarView extends AppCompatActivity {
             return true;
         }
         return false;
-    };
+    }
 
+    private void initializeDataFetch(){
+
+        // Convert the selected date to a string in the format "yyyy-MM-dd"
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        String selectedDateString = sdf.format(selectedCalendar2.getTime());
+
+        Executors.newSingleThreadExecutor().execute(() -> {
+            // Query the database for events on the selected date
+            List<EventEntity> events = CreatedEvents.eventDao().getEventsByDate(selectedDateString);
+            // Update the UI with the retrieved events
+            runOnUiThread(() -> populateEvents(events));
+        });
+    }
     private void applyBackground() {
         Drawable background = ContextCompat.getDrawable(this, backgroundResources[currentBackgroundIndex]);
         mainLayout.setBackground(background);
