@@ -85,7 +85,7 @@
                     android:hint="Your Title"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/imageViewPhoto" />
+                    app:layout_constraintTop_toBottomOf="@id/NameEvent" />
 
                 <CalendarView
                     android:id="@+id/popup_calendar"
@@ -234,7 +234,9 @@
             android:id="@+id/allEvents"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"></LinearLayout>
+            android:orientation="vertical">
+
+        </LinearLayout>
     </ScrollView>
 
     <LinearLayout

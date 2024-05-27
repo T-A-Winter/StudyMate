@@ -29,7 +29,6 @@ import java.util.Collection;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.concurrent.Executors;
 
 //TODO: I need to implement send a meeting vote + restrictions for creation of an event
