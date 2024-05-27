@@ -16,15 +16,24 @@ public class User implements Parcelable {
     private Integer phoneNumber = 0;
     private String biography = "";
     //private FriendList friends = new FriendList(); // Removed direct instantiation
+    private int profilePictureSeed = 0;
     public String getProfilePictureUrl() {
 
-        return "https://example.com/profile_picture.jpg";
+        return "https://api.dicebear.com/8.x/lorelei/png?seed=" + profilePictureSeed;
     }
     public User(String name, University university, Collection<Tag> tags, String email) {
         this.name = name;
         this.university = university;
         this.tags = tags;
         this.email = email;
+    }
+
+    public void setProfilePictureSeed(int profilePictureSeed) {
+        this.profilePictureSeed = profilePictureSeed;
+    }
+
+    public int getProfilePictureSeed() {
+        return profilePictureSeed;
     }
 
     public User(String name, University university, Collection<Tag> tags, String email, int phoneNumber, String biography) {
@@ -44,6 +53,7 @@ public class User implements Parcelable {
         email = in.readString();
         phoneNumber = in.readInt();
         biography = in.readString();
+        profilePictureSeed = in.readInt();
     }
 
     public static final Creator<User> CREATOR = new Creator<User>() {
@@ -71,6 +81,7 @@ public class User implements Parcelable {
         parcel.writeString(email);
         parcel.writeInt(phoneNumber);
         parcel.writeString(biography);
+        parcel.writeInt(profilePictureSeed);
     }
 
     public void setPhoneNumber(int phoneNumber) {

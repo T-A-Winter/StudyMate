@@ -196,7 +196,8 @@ public class MatchingAlgorithm extends AppCompatActivity {
         PhotoView profilePicture = findViewById(R.id.profilePicture);
         int min = 1;
         int max = 1000000;
-        String url = "https://api.dicebear.com/8.x/lorelei/png?seed=" + random.nextInt(max - min + 1) + min;
+        currentlyViewedUser.setProfilePictureSeed(random.nextInt(max - min + 1) + min);
+        String url = "https://api.dicebear.com/8.x/lorelei/png?seed=" + currentlyViewedUser.getProfilePictureSeed();
 
         Glide.with(this)
                 .load(url)
