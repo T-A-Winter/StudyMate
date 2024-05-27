@@ -75,7 +75,8 @@ public class CreateAccount extends AppCompatActivity {
             if (name.isEmpty() || email.isEmpty() || selectedUniversity == null || selectedTags.isEmpty()) {
                 Toast.makeText(CreateAccount.this, "Please fill all required fields: Name, Email, University, and at least one Tag", Toast.LENGTH_SHORT).show();
             } else {
-                User user = new User(name, selectedUniversity, selectedTags, email, Integer.parseInt(phoneNumber), specialRequest);
+                int phoneNumberInt = phoneNumber.isEmpty() ? 0 : Integer.parseInt(phoneNumber);
+                User user = new User(name, selectedUniversity, selectedTags, email, phoneNumberInt, specialRequest);
                 startSearch(user);
             }
         });

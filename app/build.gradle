@@ -38,6 +38,7 @@ dependencies {
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
+    implementation 'org.xerial:sqlite-jdbc:3.36.0.3'
     implementation "androidx.room:room-runtime:2.2.5"
     annotationProcessor "androidx.room:room-compiler:2.2.5"
     implementation 'com.github.chrisbanes:PhotoView:2.3.0' //Photoview
