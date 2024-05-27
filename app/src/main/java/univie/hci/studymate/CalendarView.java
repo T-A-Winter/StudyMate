@@ -3,6 +3,8 @@ package univie.hci.studymate;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -70,6 +72,8 @@ public class CalendarView extends AppCompatActivity {
         initialization();
         applyBackground();
         setListeners();
+        applyRestrictions();
+
     }
 
     private void initialization(){
@@ -78,7 +82,8 @@ public class CalendarView extends AppCompatActivity {
         timePickerStart = findViewById(R.id.timePickerStart);
         timePickerEnd = findViewById(R.id.timePickerEnd);
         popupCalendar = findViewById(R.id.popup_calendar);
-        TitleText = findViewById(R.id.EventTitle);
+        TitleText = findViewById(R.id.EventTitle);selectedCalendar = Calendar.getInstance();
+        ActualCalendar  = findViewById(R.id.actual_calendar);
         CreateEventButton = findViewById(R.id.CreateEvent);
         CreatedEvents = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "event-database-3").build();
         currentBackgroundIndex = getSharedPreferences("prefs", MODE_PRIVATE).getInt("backgroundIndex", 0);
@@ -127,7 +132,6 @@ public class CalendarView extends AppCompatActivity {
             startActivity(intent);
         });
 
-
         popupCalendar.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
             selectedCalendar.set(year, month, dayOfMonth);
         });
@@ -135,6 +139,21 @@ public class CalendarView extends AppCompatActivity {
         //saves a created Event in Database stored locally on a device (not connected to the user account)
         //In future can be used to temporary store events while offline
         CreateEventButton.setOnClickListener(v -> {
+
+            //additional timing check/change
+            if (isSameDate(selectedCalendar, Calendar.getInstance())){
+                if(timePickerStart.getHour() < Calendar.getInstance().get(Calendar.HOUR_OF_DAY) ||
+                        (timePickerStart.getHour() < Calendar.getInstance().get(Calendar.HOUR_OF_DAY)&&  timePickerStart.getMinute()< Calendar.getInstance().get(Calendar.MINUTE))){
+                    timePickerStart.setCurrentHour(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
+                    timePickerStart.setCurrentMinute(Calendar.getInstance().get(Calendar.MINUTE));
+                }
+            }
+
+            if (timePickerStart.getHour() > timePickerEnd.getHour() || (timePickerStart.getHour() == timePickerEnd.getHour() && timePickerStart.getMinute() > timePickerEnd.getMinute())) {
+                timePickerEnd.setCurrentHour(timePickerStart.getHour());
+                timePickerEnd.setCurrentMinute(timePickerStart.getMinute());
+            }
+
             String title = TitleText.getText().toString();
 
             int startHour = timePickerStart.getHour();
@@ -180,12 +199,10 @@ public class CalendarView extends AppCompatActivity {
             // Convert the selected date to a string in the format "yyyy-MM-dd"
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
             String selectedDateString = sdf.format(selectedDate.getTime());
-            Log.d("Selected Date", "Date: " + selectedDateString);
 
             Executors.newSingleThreadExecutor().execute(() -> {
                 // Query the database for events on the selected date
                 List<EventEntity> events = CreatedEvents.eventDao().getEventsByDate(selectedDateString);
-                Log.d("Database", "Events retrieved: " + events.size());
                 // Update the UI with the retrieved events
                 runOnUiThread(() -> populateEvents(events));
             });
@@ -217,6 +234,76 @@ public class CalendarView extends AppCompatActivity {
     private void insertEvent(EventEntity event) {
         new Thread(() -> CreatedEvents.eventDao().insert(event)).start();
     }
+
+    //to be honest there are a lot of listeners as well
+    private void applyRestrictions() {
+
+        //restriction for popup calendar
+        Calendar calendar = Calendar.getInstance();
+        long today = calendar.getTimeInMillis();
+        popupCalendar.setMinDate(today);
+
+        //restriction for time
+        final int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+        final int currentMinute = calendar.get(Calendar.MINUTE);
+        timePickerStart.setCurrentHour(currentHour);
+        timePickerStart.setCurrentMinute(currentMinute);
+        timePickerEnd.setCurrentHour(currentHour);
+        timePickerEnd.setCurrentMinute(currentMinute);
+
+        timePickerStart.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+            @Override
+            public void onTimeChanged(TimePicker view, int startHour, int startMinute) {
+                int finishHour = timePickerEnd.getCurrentHour();
+                int finishMinute = timePickerEnd.getCurrentMinute();
+
+                if (isSameDate(selectedCalendar, Calendar.getInstance())){
+                    if(timePickerStart.getHour() < Calendar.getInstance().get(Calendar.HOUR_OF_DAY) ||
+                            (timePickerStart.getHour() < Calendar.getInstance().get(Calendar.HOUR_OF_DAY)&&  timePickerStart.getMinute()< Calendar.getInstance().get(Calendar.MINUTE))){
+                        timePickerStart.setCurrentHour(startHour);
+                        timePickerStart.setCurrentMinute(startMinute);
+                    }
+                }
+
+                if (startHour > finishHour || (startHour == finishHour && startMinute > finishMinute)) {
+                    timePickerEnd.setCurrentHour(startHour);
+                    timePickerEnd.setCurrentMinute(startMinute);
+                }
+            }
+        });
+
+        timePickerEnd.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+            @Override
+            public void onTimeChanged(TimePicker view, int startHour, int startMinute) {
+                int finishHour = timePickerEnd.getCurrentHour();
+                int finishMinute = timePickerEnd.getCurrentMinute();
+
+                if (isSameDate(selectedCalendar, Calendar.getInstance())){
+                    if(timePickerStart.getHour() < Calendar.getInstance().get(Calendar.HOUR_OF_DAY) ||
+                            (timePickerStart.getHour() < Calendar.getInstance().get(Calendar.HOUR_OF_DAY)&&  timePickerStart.getMinute()< Calendar.getInstance().get(Calendar.MINUTE))){
+                        timePickerStart.setCurrentHour(Calendar.getInstance().get(Calendar.HOUR_OF_DAY));
+                        timePickerStart.setCurrentMinute(Calendar.getInstance().get(Calendar.MINUTE));
+                    }
+                }
+
+                if (startHour > finishHour || (startHour == finishHour && startMinute > finishMinute)) {
+                    timePickerEnd.setCurrentHour(startHour);
+                    timePickerEnd.setCurrentMinute(startMinute);
+                }
+            }
+        });
+
+    };
+
+    private boolean isSameDate(Calendar c1, Calendar c2){
+        if (c1.get(Calendar.YEAR) == c2.get(Calendar.YEAR)&&
+            c1.get(Calendar.MONTH) == c2.get(Calendar.MONTH)&&
+            c1.get(Calendar.DAY_OF_MONTH) == c2.get(Calendar.DAY_OF_MONTH)){
+            return true;
+        }
+        return false;
+    };
+
     private void applyBackground() {
         Drawable background = ContextCompat.getDrawable(this, backgroundResources[currentBackgroundIndex]);
         mainLayout.setBackground(background);
