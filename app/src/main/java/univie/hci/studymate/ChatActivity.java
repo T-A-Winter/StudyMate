@@ -6,11 +6,14 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +48,8 @@ public class ChatActivity extends AppCompatActivity {
         chatRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         chatRecyclerView.setAdapter(chatAdapter);
 
+        setProfilePicture();
+
 
         String userName = getIntent().getStringExtra("userName");
         if (userName != null) {
@@ -76,6 +81,14 @@ public class ChatActivity extends AppCompatActivity {
 
         // Load chat history
         loadChatHistory();
+    }
+
+    private void setProfilePicture() {
+        ImageView profileImageView = findViewById(R.id.profile_pic);
+        Glide.with(this)
+                .load(currentUser.getProfilePictureUrl())
+                .into(profileImageView);
+
     }
 
     private void sendMessage(Message message) {

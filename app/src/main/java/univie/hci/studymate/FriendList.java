@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +51,7 @@ public class FriendList {
         private Context context;
         private FriendList friendListInstance;
 
+
         public FriendListAdapter(List<User> friends, Context context) {
             this.friends = friends;
             this.context = context;
@@ -80,6 +83,7 @@ public class FriendList {
             private ImageView chatIcon;
             private ImageView deleteIcon;
             private ImageView infoIcon;
+            private ImageView profilePictureImageView;
 
             public FriendViewHolder(@NonNull View itemView) {
                 super(itemView);
@@ -87,10 +91,15 @@ public class FriendList {
                 chatIcon = itemView.findViewById(R.id.chat_icon);
                 deleteIcon = itemView.findViewById(R.id.delete_icon);
                 infoIcon = itemView.findViewById(R.id.info_icon);
+                profilePictureImageView = itemView.findViewById(R.id.profilePicture);
             }
 
             public void bind(final User friend) {
                 friendNameTextView.setText(friend.getName());
+                // load profile picture into image view
+                Glide.with(context)
+                                .load(friend.getProfilePictureUrl())
+                                .into(profilePictureImageView);
 
                 chatIcon.setOnClickListener(v -> {
                     User user = friends.get(getAdapterPosition());
