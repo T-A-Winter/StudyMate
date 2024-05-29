@@ -20,4 +20,4 @@ Dauer der Entwicklung:
 Tobias Winter 30h, Masham Ali 45h, Merita Mehonovic 28h
 
 Weitere Anmerkungen:
-Was sollen wir hier rein schreiben?
+Beschreiung und Arbeitsverteilung sind am Top level vom repo unter "About App" und "Arbeitsverteilung" zu finden.
