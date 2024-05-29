@@ -12,6 +12,7 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private static final int VIEW_TYPE_SENT = 1;
     private static final int VIEW_TYPE_RECEIVED = 2;
+    private static final int VIEW_TYPE_SENT_TIME_SLOT = 3;
 
     private List<Message> chatMessages;
     private String currentUserEmail;
@@ -25,6 +26,9 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public int getItemViewType(int position) {
         Message message = chatMessages.get(position);
         if (message.getFrom().getEmail().equals(currentUserEmail)) {
+            if (message.getVote()){
+                return VIEW_TYPE_SENT_TIME_SLOT;
+            }
             return VIEW_TYPE_SENT;
         } else {
             return VIEW_TYPE_RECEIVED;
@@ -34,12 +38,20 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        if (viewType == VIEW_TYPE_SENT) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_message_sent, parent, false);
-            return new SentMessageViewHolder(view);
-        } else {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.chat_message_received, parent, false);
-            return new ReceivedMessageViewHolder(view);
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        View view;
+        switch (viewType) {
+            case VIEW_TYPE_SENT:
+                view = inflater.inflate(R.layout.chat_message_sent, parent, false);
+                return new SentMessageViewHolder(view);
+            case VIEW_TYPE_RECEIVED:
+                view = inflater.inflate(R.layout.chat_message_received, parent, false);
+                return new ReceivedMessageViewHolder(view);
+            case VIEW_TYPE_SENT_TIME_SLOT:
+                view = inflater.inflate(R.layout.chat_vote_sent, parent, false);
+                return new SentTimeSlotViewHolder(view);
+            default:
+                throw new IllegalArgumentException("Invalid view type");
         }
     }
 
@@ -48,6 +60,8 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         Message message = chatMessages.get(position);
         if (holder.getItemViewType() == VIEW_TYPE_SENT) {
             ((SentMessageViewHolder) holder).bind(message);
+        } else if (holder.getItemViewType() == VIEW_TYPE_SENT_TIME_SLOT) {
+            ((SentTimeSlotViewHolder) holder).bind(message);
         } else {
             ((ReceivedMessageViewHolder) holder).bind(message);
         }
@@ -87,6 +101,22 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         public void bind(Message message) {
             receivedMessageTextView.setText(message.getMessageContent());
             receivedMessageTimestamp.setText(message.getTimestamp());
+        }
+    }
+
+    private static class SentTimeSlotViewHolder extends RecyclerView.ViewHolder {
+        private TextView sentTimeSlotTextView, sentTimeSlotTimestamp;
+
+        public SentTimeSlotViewHolder(@NonNull View itemView) {
+            super(itemView);
+            sentTimeSlotTextView = itemView.findViewById(R.id.sent_time_slot_textview);
+            sentTimeSlotTimestamp = itemView.findViewById(R.id.right_chat_timestamp);
+        }
+
+        public void bind(Message message) {
+            // Bind the message content specific to time slot messages
+            sentTimeSlotTextView.setText(message.getMessageContent());
+            sentTimeSlotTimestamp.setText(message.getTimestamp());
         }
     }
 }

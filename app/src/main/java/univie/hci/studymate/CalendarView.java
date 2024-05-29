@@ -9,6 +9,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -31,22 +32,20 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.Executors;
 
-//TODO: I need to implement send a meeting vote + restrictions for creation of an event
-//TODO: because now you can add an event that starts later than it Ends or happens in the past
-//Firstly, I don't really understand how to
-//Secondly, For that I will need to see Chat implementation, which
-//at the moment is absent
+//TODO: I need to implement send a meeting vote
+//it
+
 
 public class CalendarView extends AppCompatActivity {
-    private Calendar selectedCalendar, selectedCalendar2;
-    private TimePicker timePickerStart, timePickerEnd;
-    private EditText TitleText;
+    private Calendar selectedCalendar, selectedCalendar2, selectedCalendar3;
+    private TimePicker timePickerStart, timePickerEnd, timePickerVote;
+    private EditText TitleText, TitleTextVote;
     private AppDatabase CreatedEvents;
     Animation fadeOut, fadeIn;
-    private Button newEventButton, GoBackButton, CreateEventButton;
-    private LinearLayout CalendarLayout, ButtonsLayout;
-    private ScrollView EventsScroll, PopUp;
-    private android.widget.CalendarView ActualCalendar, popupCalendar;
+    private Button newEventButton, GoBackButton, CreateEventButton, GoBackVoteButton, SendVoteButton, CreateEventVoteButton, AddTimeSlotVoteButton;
+    private LinearLayout CalendarLayout, ButtonsLayout, tagsContainer;
+    private ScrollView EventsScroll, PopUp, PopUpVote;
+    private android.widget.CalendarView ActualCalendar, popupCalendar,popupCalendarVote;
     private ImageView settingsButton;
     private User user;
     static final private String USER_MATCHING_ALGO_STRING = MainActivity.USER_MATCHING_ALGO_STRING;
@@ -73,25 +72,45 @@ public class CalendarView extends AppCompatActivity {
     }
 
     private void initialization(){
+        //user
+        user = getUserFromIntent();
+        //calendars
+        selectedCalendar3 = Calendar.getInstance();
         selectedCalendar2 = Calendar.getInstance();
         selectedCalendar = Calendar.getInstance();
+        //calendar views
         ActualCalendar  = findViewById(R.id.actual_calendar);
+        popupCalendar = findViewById(R.id.popup_calendar);
+        popupCalendarVote = findViewById(R.id.popup_calendar_vote);
+        //time pickers
+        timePickerVote = findViewById(R.id.timePickerStart_vote);
         timePickerStart = findViewById(R.id.timePickerStart);
         timePickerEnd = findViewById(R.id.timePickerEnd);
-        popupCalendar = findViewById(R.id.popup_calendar);
+        //edit text
         TitleText = findViewById(R.id.EventTitle);
+        TitleTextVote = findViewById(R.id.EventTitle_vote);
+        //buttons
+        AddTimeSlotVoteButton = findViewById(R.id.Add_time_slot);
         CreateEventButton = findViewById(R.id.CreateEvent);
-        CreatedEvents = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "event-database-3").build();
-        currentBackgroundIndex = getSharedPreferences("prefs", MODE_PRIVATE).getInt("backgroundIndex", 0);
+        CreateEventVoteButton = findViewById(R.id.CreateEvent_vote);
+        SendVoteButton = findViewById(R.id.send_vote);
+        newEventButton = findViewById(R.id.for_yourself);
         settingsButton = findViewById(R.id.settingsButton);
-        user = getUserFromIntent();
+        GoBackButton = findViewById(R.id.GoBack);
+        GoBackVoteButton = findViewById(R.id.GoBack_vote);
+        //database
+        CreatedEvents = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "event-database-3").build();
+        //background
+        currentBackgroundIndex = getSharedPreferences("prefs", MODE_PRIVATE).getInt("backgroundIndex", 0);
+        //layouts or scrolls
+        ButtonsLayout = findViewById(R.id.buttons_layout);
         mainLayout = findViewById(R.id.main_layout);
         CalendarLayout = findViewById(R.id.calendar_layout);
         EventsScroll = findViewById(R.id.EventsScroll);
-        ButtonsLayout = findViewById(R.id.buttons_layout);
-        newEventButton = findViewById(R.id.for_yourself);
         PopUp = findViewById(R.id.scroll_pop_up);
-        GoBackButton = findViewById(R.id.GoBack);
+        PopUpVote = findViewById(R.id.scroll_pop_up_vote);
+        tagsContainer = findViewById(R.id.tagsContainerLayout);
+        //animation
         fadeOut = AnimationUtils.loadAnimation(this, R.anim.fade_out);
         fadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
     }
@@ -109,7 +128,19 @@ public class CalendarView extends AppCompatActivity {
             PopUp.setVisibility(View.VISIBLE);
         });
 
-        //Goes back to Calendar screen
+        //opens Send Vote PopUp
+        SendVoteButton.setOnClickListener(v -> {
+            CalendarLayout.startAnimation(fadeOut);
+            EventsScroll.startAnimation(fadeOut);
+            ButtonsLayout.startAnimation(fadeOut);
+            CalendarLayout.setVisibility(View.GONE);
+            EventsScroll.setVisibility(View.GONE);
+            ButtonsLayout.setVisibility(View.GONE);
+            PopUpVote.startAnimation(fadeIn);
+            PopUpVote.setVisibility(View.VISIBLE);
+        });
+
+        //Goes back to Calendar screen from personal event
         GoBackButton.setOnClickListener(v -> {
             PopUp.startAnimation(fadeOut);
             PopUp.setVisibility(View.GONE);
@@ -121,6 +152,19 @@ public class CalendarView extends AppCompatActivity {
             ButtonsLayout.setVisibility(View.VISIBLE);
         });
 
+        //Goes back to Calendar screen from Vote Event
+        GoBackVoteButton.setOnClickListener(v -> {
+            PopUpVote.startAnimation(fadeOut);
+            PopUpVote.setVisibility(View.GONE);
+            CalendarLayout.startAnimation(fadeIn);
+            EventsScroll.startAnimation(fadeIn);
+            ButtonsLayout.startAnimation(fadeIn);
+            CalendarLayout.setVisibility(View.VISIBLE);
+            EventsScroll.setVisibility(View.VISIBLE);
+            ButtonsLayout.setVisibility(View.VISIBLE);
+            tagsContainer.removeAllViews();
+        });
+
         //Goes to the next class Settings
         settingsButton.setOnClickListener(v -> {
             Intent intent = new Intent(univie.hci.studymate.CalendarView.this, SettingsActivity.class);
@@ -128,7 +172,12 @@ public class CalendarView extends AppCompatActivity {
             startActivity(intent);
         });
 
+        //to be honest, I don't remember, what it does, or why exactly I need it,
+        //but otherwise the event date is always == current date
         popupCalendar.setOnDateChangeListener((view, year, month, dayOfMonth) -> selectedCalendar.set(year, month, dayOfMonth));
+
+        //just copied the above for the second pop-up
+        popupCalendar.setOnDateChangeListener((view, year, month, dayOfMonth) -> selectedCalendar3.set(year, month, dayOfMonth));
 
         //saves a created Event in Database stored locally on a device (not connected to the user account)
         //In future can be used to temporary store events while offline
@@ -185,6 +234,64 @@ public class CalendarView extends AppCompatActivity {
             insertEvent(event);
         });
 
+        //adds a time slot in a vote pop up
+        AddTimeSlotVoteButton.setOnClickListener(v -> {
+            LinearLayout tagLayout = (LinearLayout) getLayoutInflater().inflate(R.layout.tag_layout, null);
+
+            // Find TextViews inside the custom layout
+            TextView timeTextView = tagLayout.findViewById(R.id.tagText);
+            ImageButton close = tagLayout.findViewById(R.id.closeButton);
+
+            int selectedHour = timePickerVote.getHour();
+            int selectedMinute = timePickerVote.getMinute();
+            String tagText = String.format("%02d:%02d - %02d:%02d", selectedHour, selectedMinute, selectedHour + 1, selectedMinute);
+            timeTextView.setText(tagText);
+
+            close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    removeTag(tagLayout);
+                }
+            });
+
+            View spacerView = new View(this);
+            LinearLayout.LayoutParams spacerParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT, // Width of the spacer, set to match parent width
+                    16 // Height of the spacer (adjust as needed for desired vertical space)
+            );
+            spacerView.setLayoutParams(spacerParams);
+
+            // Add the tag view to the tags container
+            tagsContainer.addView(tagLayout);
+
+            // Add the spacer view to the tags container
+            tagsContainer.addView(spacerView);});
+
+        //sends timeslots to the chat
+        CreateEventVoteButton.setOnClickListener(v -> {
+            String title = TitleTextVote.getText().toString();
+
+            String selectedDateString = String.format(Locale.getDefault(), "%04d-%02d-%02d",
+                    selectedCalendar.get(Calendar.YEAR),
+                    selectedCalendar.get(Calendar.MONTH) + 1,
+                    selectedCalendar.get(Calendar.DAY_OF_MONTH));
+
+            ArrayList<String> timeSlots = new ArrayList<>();
+            for (int i = 0; i < tagsContainer.getChildCount(); i++) {
+                View view = tagsContainer.getChildAt(i);
+                if (view instanceof TextView) {
+                    timeSlots.add(((TextView) view).getText().toString());
+                }
+            }
+
+            Intent intent = new Intent(CalendarView.this, ChatListActivity.class);
+            intent.putStringArrayListExtra("timeSlots", timeSlots);
+            intent.putExtra("title", title);
+            intent.putExtra("date", selectedDateString);
+            startActivity(intent);
+        });
+
+        //shows events planned for the day
         ActualCalendar.setOnDateChangeListener((view, year, month, dayOfMonth) -> {
             // Create a Calendar instance and set it to the selected date
             selectedCalendar2.set(year, month, dayOfMonth);
@@ -203,7 +310,6 @@ public class CalendarView extends AppCompatActivity {
         });
     }
 
-    //TODO: Make it look at least somewhat user friendly
     private void populateEvents(List<EventEntity> events) {
         LinearLayout eventsLayout = findViewById(R.id.EventsScroll).findViewById(R.id.allEvents);
         eventsLayout.removeAllViews(); // Clear the existing views
@@ -246,6 +352,7 @@ public class CalendarView extends AppCompatActivity {
         Calendar calendar = Calendar.getInstance();
         long today = calendar.getTimeInMillis();
         popupCalendar.setMinDate(today);
+        popupCalendarVote.setMinDate(today);
 
         //restriction for time
         final int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
@@ -314,6 +421,10 @@ public class CalendarView extends AppCompatActivity {
             // Update the UI with the retrieved events
             runOnUiThread(() -> populateEvents(events));
         });
+    }
+
+    private void removeTag(View tagView) {
+        tagsContainer.removeView(tagView);
     }
     private void applyBackground() {
         Drawable background = ContextCompat.getDrawable(this, backgroundResources[currentBackgroundIndex]);

@@ -10,6 +10,8 @@ public class Message implements Comparable<Message> {
     private User from;
     private String message;
 
+    private boolean vote = false;
+
     public Message(User from, String message) {
         this.from = from;
         this.message = message;
@@ -60,5 +62,13 @@ public class Message implements Comparable<Message> {
                 ", from=" + from +
                 ", message='" + message + '\'' +
                 '}';
+    }
+
+    public void setVote(boolean newVote){
+        vote = newVote;
+    }
+
+    public boolean getVote(){
+        return vote;
     }
 }
