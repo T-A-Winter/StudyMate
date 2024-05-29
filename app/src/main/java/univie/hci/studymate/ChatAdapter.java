@@ -3,9 +3,13 @@ package univie.hci.studymate;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+
 import java.util.List;
 
 public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -91,16 +95,26 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private static class ReceivedMessageViewHolder extends RecyclerView.ViewHolder {
         private TextView receivedMessageTextView;
         private TextView receivedMessageTimestamp;
+        private ImageView profilePicture;
 
         public ReceivedMessageViewHolder(@NonNull View itemView) {
             super(itemView);
             receivedMessageTextView = itemView.findViewById(R.id.left_chat_textview);
             receivedMessageTimestamp = itemView.findViewById(R.id.left_chat_timestamp);
+            profilePicture = itemView.findViewById(R.id.profilePicture);
         }
 
         public void bind(Message message) {
             receivedMessageTextView.setText(message.getMessageContent());
             receivedMessageTimestamp.setText(message.getTimestamp());
+
+            // loading profile picture into image view
+            User user = message.getFrom();
+            if (user != null && user.getProfilePictureUrl() != null) {
+                Glide.with(itemView.getContext())
+                        .load(user.getProfilePictureUrl())
+                        .into(profilePicture);
+            }
         }
     }
 
