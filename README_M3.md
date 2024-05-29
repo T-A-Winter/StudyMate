@@ -14,10 +14,10 @@ Gerät(e), auf dem(denen) getestet wurde:
 Pixel 6
 
 Externe Libraries und Frameworks:
-Glide, Photoview
+Glide, Photoview, Gson, SQLite JDBC, Room
 
 Dauer der Entwicklung:
-Tobias Winter 30h, Masham Ali 45h, Merita Mehonovic 28h
+Tobias Winter 30h, Masham Ali 45h, Merita Mehonovic 28h, Viktoriia Timontieieva 30h
 
 Weitere Anmerkungen:
 Beschreiung und Arbeitsverteilung sind am Top level vom repo unter "About App" und "Arbeitsverteilung" zu finden.
