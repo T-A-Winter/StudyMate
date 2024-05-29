@@ -19,7 +19,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
             android:text="Friends"
-            android:textColor="#4F61C6"
+            android:textColor="#FFFFFF"
             android:textSize="30sp"
             android:textStyle="bold|italic" />
 

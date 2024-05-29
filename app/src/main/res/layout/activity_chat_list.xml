@@ -9,7 +9,7 @@
         android:id="@+id/main_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/background_gradient_other"
+        android:background="@drawable/background_gradient"
         android:padding="10dp">
 
         <TextView
@@ -18,7 +18,7 @@
             android:layout_centerVertical="true"
             android:layout_marginStart="10dp"
             android:text="Chats"
-            android:textColor="#4F61C6"
+            android:textColor="#FFFFFF"
             android:textSize="30sp"
             android:textStyle="bold|italic" />
 
@@ -47,6 +47,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/main_toolbar"
-        android:background="@drawable/background_gradient_other" />
+        android:background="@drawable/background_gradient" />
 
 </RelativeLayout>

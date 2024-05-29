@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_gradient_other"
+    android:background="@drawable/background_gradient"
     tools:context=".ChatActivity">
 
     <!-- Profile Picture -->
@@ -24,6 +24,7 @@
         android:layout_marginStart="20dp"
         android:layout_toEndOf="@id/profile_pic"
         android:text="Username"
+        android:textColor="#FFFFFF"
         android:textSize="22sp"
         android:textStyle="bold|italic" />
 
@@ -36,6 +37,7 @@
         android:layout_alignStart="@id/chat_username_text_view"
         android:layout_marginTop="4dp"
         android:text="Last online: Just now"
+        android:textColor="#FFFFFF"
         android:textSize="14sp" />
 
     <!-- RecyclerView to display chat messages -->
@@ -45,7 +47,7 @@
         android:layout_height="0dp"
         android:layout_above="@id/bottom_layout"
         android:layout_below="@id/last_online_status"
-        android:background="@drawable/background_gradient_other"
+        android:background="@drawable/background_gradient"
         android:padding="16dp" />
 
     <ImageButton
@@ -66,7 +68,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/background_gradient_other"
+        android:background="@drawable/background_gradient"
         android:padding="8dp">
 
         <EditText
@@ -94,7 +96,7 @@
             android:background="?attr/selectableItemBackgroundBorderless"
             android:padding="8dp"
             android:src="@drawable/icon_send"
-            app:tint="#3F51B5" />
+            app:tint="#FFFFFF" />
     </RelativeLayout>
 
 </RelativeLayout>
