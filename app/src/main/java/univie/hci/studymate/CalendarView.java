@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -279,9 +280,14 @@ public class CalendarView extends AppCompatActivity {
             ArrayList<String> timeSlots = new ArrayList<>();
             for (int i = 0; i < tagsContainer.getChildCount(); i++) {
                 View view = tagsContainer.getChildAt(i);
-                if (view instanceof TextView) {
-                    timeSlots.add(((TextView) view).getText().toString());
+                if (view instanceof ViewGroup) {
+                    ViewGroup viewGroup = (ViewGroup) view;
+                    View view2 = viewGroup.getChildAt(0);
+                    if (view2 instanceof TextView) {
+                        timeSlots.add(((TextView) view2).getText().toString());
+                    }
                 }
+
             }
 
             Intent intent = new Intent(CalendarView.this, ChatListActivity.class);
