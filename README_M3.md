@@ -20,4 +20,4 @@ Dauer der Entwicklung:
 Tobias Winter 30h, Masham Ali 45h, Merita Mehonovic 28h, Viktoriia Timontieieva 30h
 
 Weitere Anmerkungen:
-Beschreiung und Arbeitsverteilung sind am Top level vom repo unter "About App" und "Arbeitsverteilung" zu finden.
+Beschreiung und Arbeitsverteilung sind am top level vom repo unter Google Doc "Meilenstein 3" zu finden.
