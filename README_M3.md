@@ -17,7 +17,9 @@ Externe Libraries und Frameworks:
 Glide, Photoview
 
 Dauer der Entwicklung:
+
 Tobias Winter 30h
+Masham Ali 45h
 
 Weitere Anmerkungen:
 Was sollen wir hier rein schreiben?
