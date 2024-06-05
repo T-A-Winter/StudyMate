@@ -7,17 +7,17 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -35,8 +35,19 @@ public class ChatListActivity extends AppCompatActivity implements ChatListAdapt
     private int[] backgroundResources = {
             R.drawable.background_gradient,
             R.drawable.background_gradient_other,
+            R.drawable.background_gradient_green,
+            R.drawable.background_gradient_wine_red,
             R.drawable.background_gradient_second,
             R.drawable.background_gradient_third
+    };
+
+    private int[] textColors = {
+            R.color.text_color1,
+            R.color.text_color2,
+            R.color.text_color3,
+            R.color.text_color4,
+            R.color.text_color5,
+            R.color.text_color6
     };
 
     @Override
@@ -60,8 +71,6 @@ public class ChatListActivity extends AppCompatActivity implements ChatListAdapt
         chatListAdapter = new ChatListAdapter(messagesWithChatHistory);
         chatListAdapter.setOnItemClickListener(this);
         chatListRecyclerView.setAdapter(chatListAdapter);
-
-
 
         // setting up Navbar
         user = getUserFromIntent();
@@ -98,7 +107,6 @@ public class ChatListActivity extends AppCompatActivity implements ChatListAdapt
         return new User(name, uni, tags, email);
     }
 
-
     private List<Message> filterMessagesWithChatHistory(List<User> allUsers) {
         List<Message> messagesWithChatHistory = new ArrayList<>();
         ChatList chatList = ChatList.getInstance(this);
@@ -125,5 +133,11 @@ public class ChatListActivity extends AppCompatActivity implements ChatListAdapt
         Drawable background = ContextCompat.getDrawable(this, backgroundResources[currentBackgroundIndex]);
         mainToolbar.setBackground(background);
         chatList.setBackground(background);
+
+        // Apply the corresponding text color
+        int textColor = ContextCompat.getColor(this, textColors[currentBackgroundIndex]);
+        // Assuming you have a TextView in the main_toolbar, set its color here
+        TextView toolbarTitle = mainToolbar.findViewById(R.id.toolbar_title); // Adjust this ID as necessary
+        toolbarTitle.setTextColor(textColor);
     }
 }
