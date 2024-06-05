@@ -23,6 +23,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.room.Room;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -52,6 +54,7 @@ public class CalendarView extends AppCompatActivity {
     static final private String USER_MATCHING_ALGO_STRING = MainActivity.USER_MATCHING_ALGO_STRING;
     private ConstraintLayout mainLayout;
     private int currentBackgroundIndex = 0;
+    private NavBar navBar;
     private int[] backgroundResources = {
             R.drawable.background_gradient,
             R.drawable.background_gradient_other,
@@ -75,6 +78,9 @@ public class CalendarView extends AppCompatActivity {
     private void initialization(){
         //user
         user = getUserFromIntent();
+        // setting up NavBar
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        navBar = new NavBar(this, bottomNavigationView, user);
         //calendars
         selectedCalendar3 = Calendar.getInstance();
         selectedCalendar2 = Calendar.getInstance();
