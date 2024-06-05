@@ -5,6 +5,8 @@ import static univie.hci.studymate.MainActivity.USER_MATCHING_ALGO_STRING;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -17,6 +19,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 public class ChatListActivity extends AppCompatActivity implements ChatListAdapter.OnItemClickListener {
@@ -27,6 +31,8 @@ public class ChatListActivity extends AppCompatActivity implements ChatListAdapt
     private RelativeLayout mainToolbar;
     private RecyclerView chatList;
     private int currentBackgroundIndex = 0;
+    private User user;
+    private NavBar navBar;
     private int[] backgroundResources = {
             R.drawable.background_gradient,
             R.drawable.background_gradient_other,
@@ -65,7 +71,41 @@ public class ChatListActivity extends AppCompatActivity implements ChatListAdapt
                 startActivity(intent);
             }
         });
+
+        // setting up Navbar
+        user = getUserFromIntent();
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        navBar = new NavBar(this, bottomNavigationView, user);
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.bottom_navigation_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return navBar.onMenuItemClick(item) || super.onOptionsItemSelected(item);
+    }
+
+    private User getUserFromIntent() {
+        Intent intent = getIntent();
+        User user = intent.getParcelableExtra(USER_MATCHING_ALGO_STRING);
+        if (user == null) {
+            user = setFailSafeUser();
+        }
+        return user;
+    }
+
+    private User setFailSafeUser() {
+        String name = "failSafeUser";
+        Collection<Tag> tags = new ArrayList<>(Arrays.asList(Tag.ERSTI, Tag.HCI));
+        University uni = University.UNI_WIEN;
+        String email = "failsafe@example.com";
+        return new User(name, uni, tags, email);
+    }
+
 
     private List<Message> filterMessagesWithChatHistory(List<User> allUsers) {
         List<Message> messagesWithChatHistory = new ArrayList<>();

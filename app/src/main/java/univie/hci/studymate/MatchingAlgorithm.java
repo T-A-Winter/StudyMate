@@ -99,6 +99,13 @@ public class MatchingAlgorithm extends AppCompatActivity {
         }
         return user;
     }
+    private User setFailSafeUser() {
+        String name = "failSafeUser";
+        Collection<Tag> tags = new ArrayList<>(Arrays.asList(Tag.ERSTI, Tag.HCI));
+        University uni = University.UNI_WIEN;
+        String email = "failsafe@example.com";
+        return new User(name, uni, tags, email);
+    }
 
     private void setDefaultProfilePicture() {
         PhotoView profilePicture = findViewById(R.id.profilePicture);
@@ -110,13 +117,7 @@ public class MatchingAlgorithm extends AppCompatActivity {
         return intent.getParcelableExtra(USER_MATCHING_ALGO_STRING);
     }
 
-    private User setFailSafeUser() {
-        String name = "failSafeUser";
-        Collection<Tag> tags = new ArrayList<>(Arrays.asList(Tag.ERSTI, Tag.HCI));
-        University uni = University.UNI_WIEN;
-        String email = "failsafe@example.com";
-        return new User(name, uni, tags, email);
-    }
+
 
     private Collection<User> createRandomUsers() {
         // creating the users
