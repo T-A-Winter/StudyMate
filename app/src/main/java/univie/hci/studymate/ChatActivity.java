@@ -1,15 +1,18 @@
 package univie.hci.studymate;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,6 +30,16 @@ public class ChatActivity extends AppCompatActivity {
     private List<Message> chatMessages;
     private TextView chatUsernameTextView;
     private User currentUser;
+    private RelativeLayout mainLayout;
+    private RelativeLayout bottomLayout;
+    private int currentBackgroundIndex = 0;
+
+    private int[] backgroundResources = {
+            R.drawable.background_gradient,
+            R.drawable.background_gradient_other,
+            R.drawable.background_gradient_second,
+            R.drawable.background_gradient_third
+    };
 
     private FriendList getFriendList() {
         return FriendList.getInstance(getApplicationContext());
@@ -36,6 +49,12 @@ public class ChatActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
+
+        // Initialize views
+        mainLayout = findViewById(R.id.main_layout);
+        bottomLayout = findViewById(R.id.bottom_layout);
+        currentBackgroundIndex = getSharedPreferences("prefs", MODE_PRIVATE).getInt("backgroundIndex", 0);
+        applyBackground();
 
         messageInput = findViewById(R.id.chat_message_input);
         sendButton = findViewById(R.id.message_send_btn);
@@ -49,7 +68,6 @@ public class ChatActivity extends AppCompatActivity {
         chatRecyclerView.setAdapter(chatAdapter);
 
         setProfilePicture();
-
 
         String userName = getIntent().getStringExtra("userName");
         if (userName != null) {
@@ -83,40 +101,36 @@ public class ChatActivity extends AppCompatActivity {
         loadChatHistory();
 
         vote();
-
-
     }
 
-    private void vote(){
+    private void vote() {
         ArrayList<String> timeSlots = getIntent().getStringArrayListExtra("timeSlots");
-        if(timeSlots == null) {return;}
+        if (timeSlots == null) {
+            return;
+        }
 
         String myVote = null;
-        String myVoteBase =   "You have been asked to choose a suitable time slot \n";
+        String myVoteBase = "You have been asked to choose a suitable time slot \n";
 
-        //for vote
         String eventTitle = getIntent().getStringExtra("title");
         if (eventTitle != null) {
             myVote = myVoteBase + "For the event called " + eventTitle;
-        }
-        else {
-            myVote = myVoteBase +  "For a nameless event ";
+        } else {
+            myVote = myVoteBase + "For a nameless event ";
         }
 
         sendMessage(new Message(currentUser, myVote));
 
-        //for vote
         String eventDate = getIntent().getStringExtra("date");
         if (eventTitle != null) {
             Message timeSlotMessage = new Message(currentUser, "The event Date is " + eventDate);
             sendMessage(timeSlotMessage);
         }
 
-        //for vote
-        Message header = new Message(currentUser,  "Vote for a suitable timeslot: ");
+        Message header = new Message(currentUser, "Vote for a suitable timeslot: ");
         sendMessage(header);
         for (String timeSlot : timeSlots) {
-            Message timeSlotMessage = new Message(currentUser,  timeSlot);
+            Message timeSlotMessage = new Message(currentUser, timeSlot);
             timeSlotMessage.setVote(true);
             sendMessage(timeSlotMessage);
         }
@@ -127,14 +141,12 @@ public class ChatActivity extends AppCompatActivity {
         Glide.with(this)
                 .load(currentUser.getProfilePictureUrl())
                 .into(profileImageView);
-
     }
 
     private void sendMessage(Message message) {
         chatMessages.add(message);
         chatAdapter.notifyItemInserted(chatMessages.size() - 1);
         chatRecyclerView.scrollToPosition(chatMessages.size() - 1);
-
         saveMessageToChatHistory(message);
     }
 
@@ -157,7 +169,6 @@ public class ChatActivity extends AppCompatActivity {
         }
         chat.addMessage(message);
         chatList.saveChatList();
-
     }
 
     private User getCurrentUser() {
@@ -168,5 +179,11 @@ public class ChatActivity extends AppCompatActivity {
             }
         }
         return null;
+    }
+
+    private void applyBackground() {
+        Drawable background = ContextCompat.getDrawable(this, backgroundResources[currentBackgroundIndex]);
+        mainLayout.setBackground(background);
+        bottomLayout.setBackground(background);
     }
 }
