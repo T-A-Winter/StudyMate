@@ -61,6 +61,7 @@ public class MatchingAlgorithm extends AppCompatActivity {
 
         // sets up NavBar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.menu_matching);
         navBar = new NavBar(this, bottomNavigationView, user);
 
 
