@@ -15,16 +15,25 @@ public class LoginEmail extends AppCompatActivity {
 
     private EditText emailEditText, passwordEditText;
     private Button submitLoginButton;
-
-    //dodano
     private ConstraintLayout mainLayout;
 
     private int currentBackgroundIndex = 0;
     private int[] backgroundResources = {
             R.drawable.background_gradient,
             R.drawable.background_gradient_other,
+            R.drawable.background_gradient_green,
+            R.drawable.background_gradient_wine_red,
             R.drawable.background_gradient_second,
             R.drawable.background_gradient_third
+    };
+
+    private int[] textColors = {
+            R.color.text_color1,
+            R.color.text_color2,
+            R.color.text_color3,
+            R.color.text_color4,
+            R.color.text_color5,
+            R.color.text_color6
     };
 
     @Override
@@ -54,19 +63,20 @@ public class LoginEmail extends AppCompatActivity {
 
         currentBackgroundIndex = getSharedPreferences("prefs", MODE_PRIVATE).getInt("backgroundIndex", 0);
         applyBackground();
-
-
     }
 
-    //always true except email and pw empty
     private boolean checkInputs(String email, String password) {
         return !email.isEmpty() && !password.isEmpty();
     }
 
-
     private void applyBackground() {
         Drawable background = ContextCompat.getDrawable(this, backgroundResources[currentBackgroundIndex]);
         mainLayout.setBackground(background);
+
+        int textColor = ContextCompat.getColor(this, textColors[currentBackgroundIndex]);
+        emailEditText.setTextColor(textColor);
+        passwordEditText.setTextColor(textColor);
+        submitLoginButton.setTextColor(textColor);
     }
 
     private void startSearch(User user) {
@@ -74,8 +84,4 @@ public class LoginEmail extends AppCompatActivity {
         intent.putExtra(MainActivity.USER_MATCHING_ALGO_STRING, user);
         startActivity(intent);
     }
-
 }
-
-
-
