@@ -57,6 +57,8 @@ public class CalendarView extends AppCompatActivity {
     private int[] backgroundResources = {
             R.drawable.background_gradient,
             R.drawable.background_gradient_other,
+            R.drawable.background_gradient_green,
+            R.drawable.background_gradient_wine_red,
             R.drawable.background_gradient_second,
             R.drawable.background_gradient_third
     };
