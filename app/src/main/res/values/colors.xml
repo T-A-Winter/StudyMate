@@ -3,4 +3,10 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="colorAccent">#70DAAB</color>
+    <color name="text_color1">#000000</color>
+    <color name="text_color2">#FFFFFF</color>
+    <color name="text_color3">#333333</color>
+    <color name="text_color4">#666666</color>
+    <color name="text_color5">#FFFFFF</color>
+    <color name="text_color6">#FFFFFF</color>
 </resources>
