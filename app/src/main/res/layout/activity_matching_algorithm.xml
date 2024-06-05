@@ -9,7 +9,7 @@
     android:background="@drawable/background_gradient"
     tools:context=".MatchingAlgorithm">
 
-    <!-- Your existing views -->
+    <!-- Existing views -->
 
     <ImageView
         android:id="@+id/backgroundImage1"
@@ -91,7 +91,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/edit_text_background"
         android:text="Tags"
-        android:textColor="#000000"
+        android:textColor="@android:color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/UniTextView" />
 
@@ -103,7 +103,7 @@
         android:layout_marginTop="12dp"
         android:background="@drawable/edit_text_background"
         android:text="Bio"
-        android:textColor="#000000"
+        android:textColor="@android:color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TagsTextView" />
 
@@ -115,7 +115,7 @@
         android:layout_marginTop="32dp"
         android:background="@drawable/edit_text_background"
         android:text="Name"
-        android:textColor="#000000"
+        android:textColor="@android:color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/backgroundImage2" />
 
@@ -126,7 +126,7 @@
         android:layout_marginStart="16dp"
         android:background="@drawable/edit_text_background"
         android:text="Uni"
-        android:textColor="#000000"
+        android:textColor="@android:color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
 
@@ -143,6 +143,5 @@
         android:layout_height="wrap_content"
         app:menu="@menu/bottom_navigation_menu"
         app:layout_constraintBottom_toBottomOf="parent" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
