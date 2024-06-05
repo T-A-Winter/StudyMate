@@ -1,15 +1,26 @@
 package univie.hci.studymate;
+import java.util.Arrays;
 import java.util.Collection;
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
 public class UserInfoActivity extends AppCompatActivity {
+    static final private String USER_MATCHING_ALGO_STRING = MainActivity.USER_MATCHING_ALGO_STRING;
+    private User user;
 
+    private NavBar navBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +33,11 @@ public class UserInfoActivity extends AppCompatActivity {
         ImageView userProfileImageView = findViewById(R.id.profilePicture);
 
         // Retrieve the user information from the intent
-        User user = getIntent().getParcelableExtra("user");
+        user = getUserFromIntent();
+
+        // sets up NavBar
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        navBar = new NavBar(this, bottomNavigationView, user);
 
         if (user != null) {
             userNameTextView.setText(user.getName());
@@ -35,6 +50,17 @@ public class UserInfoActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.bottom_navigation_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return navBar.onMenuItemClick(item) || super.onOptionsItemSelected(item);
+    }
+
     private String formatTags(Collection<Tag> tags) {
         StringBuilder sb = new StringBuilder();
         for (Tag tag : tags) {
@@ -45,5 +71,22 @@ public class UserInfoActivity extends AppCompatActivity {
             sb.setLength(sb.length() - 2);
         }
         return sb.toString();
+    }
+
+    private User getUserFromIntent() {
+        Intent intent = getIntent();
+        User user = intent.getParcelableExtra(USER_MATCHING_ALGO_STRING);
+        if (user == null) {
+            user = setFailSafeUser();
+        }
+        return user;
+    }
+
+    private User setFailSafeUser() {
+        String name = "failSafeUser";
+        Collection<Tag> tags = new ArrayList<>(Arrays.asList(Tag.ERSTI, Tag.HCI));
+        University uni = University.UNI_WIEN;
+        String email = "failsafe@example.com";
+        return new User(name, uni, tags, email);
     }
 }

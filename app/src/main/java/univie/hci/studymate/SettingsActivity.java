@@ -29,8 +29,6 @@ public class SettingsActivity extends AppCompatActivity {
             R.drawable.background_gradient_third
     };
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,11 +47,6 @@ public class SettingsActivity extends AppCompatActivity {
             getSharedPreferences("prefs", MODE_PRIVATE).edit().putInt("backgroundIndex", currentBackgroundIndex).apply();
             applyBackground();
         });
-
-
-
-
-
 
         // getting user
         user = getUserFromIntent();
@@ -85,9 +78,6 @@ public class SettingsActivity extends AppCompatActivity {
             Intent intent = new Intent(SettingsActivity.this, FriendListActivity.class);
             startActivity(intent);
         });
-
-
-
     }
 
 private void applyBackground() {

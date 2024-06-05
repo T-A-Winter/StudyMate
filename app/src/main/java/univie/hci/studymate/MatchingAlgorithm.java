@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 import com.github.chrisbanes.photoview.PhotoView;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,12 +54,16 @@ public class MatchingAlgorithm extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_matching_algorithm);
 
-        navBar = new NavBar(this);
-
         mainLayout = findViewById(R.id.main_layout);
 
         // get the user
         user = getUserFromIntent();
+
+        // sets up NavBar
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        navBar = new NavBar(this, bottomNavigationView, user);
+
+
         // get matching users
         matchedUsers = new LinkedList<>(matchingAlgo.match_more(user));
 
@@ -67,12 +72,6 @@ public class MatchingAlgorithm extends AppCompatActivity {
 
         currentBackgroundIndex = getSharedPreferences("prefs", MODE_PRIVATE).getInt("backgroundIndex", 0);
         applyBackground();
-    }
-
-    public void settingsButton(View view) {
-        Intent intent = new Intent(MatchingAlgorithm.this, SettingsActivity.class);
-        intent.putExtra(USER_MATCHING_ALGO_STRING, user);
-        startActivity(intent);
     }
 
     @Override
@@ -84,6 +83,12 @@ public class MatchingAlgorithm extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         return navBar.onMenuItemClick(item) || super.onOptionsItemSelected(item);
+    }
+
+    public void settingsButton(View view) {
+        Intent intent = new Intent(MatchingAlgorithm.this, SettingsActivity.class);
+        intent.putExtra(USER_MATCHING_ALGO_STRING, user);
+        startActivity(intent);
     }
 
     private User getUserFromIntent() {
