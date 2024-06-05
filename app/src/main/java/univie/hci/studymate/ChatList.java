@@ -2,6 +2,8 @@ package univie.hci.studymate;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.widget.ImageView;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -16,10 +18,12 @@ public class ChatList {
     private static final String CHATS_KEY = "Chats";
     private Context context;
 
+
     private ChatList(Context context) {
         this.context = context;
         chatMap = new HashMap<>();
     }
+
 
     public static ChatList getInstance(Context context) {
         if (instance == null) {
