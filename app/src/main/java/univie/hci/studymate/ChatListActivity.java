@@ -20,10 +20,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChatListActivity extends AppCompatActivity implements ChatListAdapter.OnItemClickListener {
-    //next 3 values are for vote
-    private ArrayList<String> timeSlots = null;
-    private String eventTitle = null;
-    private String eventDate = null;
 
     private RecyclerView chatListRecyclerView;
     private ChatListAdapter chatListAdapter;
@@ -42,11 +38,6 @@ public class ChatListActivity extends AppCompatActivity implements ChatListAdapt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat_list);
-
-        //needed for calendar vote
-        timeSlots = getIntent().getStringArrayListExtra("timeSlots");
-        eventTitle = getIntent().getStringExtra("title");
-        eventDate = getIntent().getStringExtra("date");
 
         // for color
         mainToolbar = findViewById(R.id.main_toolbar);
@@ -95,9 +86,6 @@ public class ChatListActivity extends AppCompatActivity implements ChatListAdapt
         Intent intent = new Intent(this, ChatActivity.class);
         intent.putExtra("userId", message.getFrom().getId());
         intent.putExtra("userName", message.getFrom().getName());
-        if (timeSlots != null) intent.putStringArrayListExtra("timeSlots", timeSlots);
-        if (eventTitle != null)intent.putExtra("title", eventTitle);
-        if (eventDate != null)intent.putExtra("date", eventDate);
         startActivity(intent);
     }
 

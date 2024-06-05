@@ -3,11 +3,14 @@ package univie.hci.studymate;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
@@ -31,6 +34,7 @@ public class MatchingAlgorithm extends AppCompatActivity {
     private final Matching matchingAlgo = new Matching(createRandomUsers());
     static final private String USER_MATCHING_ALGO_STRING = MainActivity.USER_MATCHING_ALGO_STRING;
     private User user;
+    private NavBar navBar;
     private Queue<User> matchedUsers;
     private User currentlyViewedUser;
     private ImageView settingsButton;
@@ -48,6 +52,8 @@ public class MatchingAlgorithm extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_matching_algorithm);
+
+        navBar = new NavBar(this);
 
         mainLayout = findViewById(R.id.main_layout);
 
@@ -67,6 +73,17 @@ public class MatchingAlgorithm extends AppCompatActivity {
         Intent intent = new Intent(MatchingAlgorithm.this, SettingsActivity.class);
         intent.putExtra(USER_MATCHING_ALGO_STRING, user);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.bottom_navigation_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        return navBar.onMenuItemClick(item) || super.onOptionsItemSelected(item);
     }
 
     private User getUserFromIntent() {
