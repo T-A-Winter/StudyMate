@@ -49,7 +49,6 @@ public class CalendarView extends AppCompatActivity {
     private LinearLayout CalendarLayout, ButtonsLayout, tagsContainer;
     private ScrollView EventsScroll, PopUp, PopUpVote;
     private android.widget.CalendarView ActualCalendar, popupCalendar,popupCalendarVote;
-    private ImageView settingsButton;
     private User user;
     static final private String USER_MATCHING_ALGO_STRING = MainActivity.USER_MATCHING_ALGO_STRING;
     private ConstraintLayout mainLayout;
@@ -102,7 +101,6 @@ public class CalendarView extends AppCompatActivity {
         CreateEventVoteButton = findViewById(R.id.CreateEvent_vote);
         SendVoteButton = findViewById(R.id.send_vote);
         newEventButton = findViewById(R.id.for_yourself);
-        settingsButton = findViewById(R.id.settingsButton);
         GoBackButton = findViewById(R.id.GoBack);
         GoBackVoteButton = findViewById(R.id.GoBack_vote);
         //database
@@ -172,12 +170,7 @@ public class CalendarView extends AppCompatActivity {
             tagsContainer.removeAllViews();
         });
 
-        //Goes to the next class Settings
-        settingsButton.setOnClickListener(v -> {
-            Intent intent = new Intent(univie.hci.studymate.CalendarView.this, SettingsActivity.class);
-            intent.putExtra(USER_MATCHING_ALGO_STRING, user);
-            startActivity(intent);
-        });
+
 
         //to be honest, I don't remember, what it does, or why exactly I need it,
         //but otherwise the event date is always == current date

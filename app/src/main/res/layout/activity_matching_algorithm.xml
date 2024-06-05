@@ -27,7 +27,7 @@
         android:layout_width="238dp"
         android:layout_height="250dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -131,24 +131,14 @@
         app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
 
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/backgroundImage2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo" />
-
-    <ImageView
         android:id="@+id/settingsButton"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="40dp"
         android:onClick="settingsButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/backgroundImage2"
-        app:layout_constraintTop_toBottomOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/settingsbutton" />
 
     <!-- bottom navigation bar -->
