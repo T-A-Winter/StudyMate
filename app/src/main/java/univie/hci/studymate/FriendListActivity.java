@@ -5,13 +5,11 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -30,6 +28,7 @@ public class FriendListActivity extends AppCompatActivity {
     private int currentBackgroundIndex = 0;
     private RecyclerView mainLayout;
     private RelativeLayout toolBar;
+    private TextView toolbarTitle;
     static final private String USER_MATCHING_ALGO_STRING = MainActivity.USER_MATCHING_ALGO_STRING;
     private User user;
     private NavBar navBar;
@@ -37,8 +36,19 @@ public class FriendListActivity extends AppCompatActivity {
     private int[] backgroundResources = {
             R.drawable.background_gradient,
             R.drawable.background_gradient_other,
+            R.drawable.background_gradient_green,
+            R.drawable.background_gradient_wine_red,
             R.drawable.background_gradient_second,
             R.drawable.background_gradient_third
+    };
+
+    private int[] textColors = {
+            R.color.text_color1,
+            R.color.text_color2,
+            R.color.text_color3,
+            R.color.text_color4,
+            R.color.text_color5,
+            R.color.text_color6
     };
 
     @Override
@@ -48,7 +58,7 @@ public class FriendListActivity extends AppCompatActivity {
 
         mainLayout = findViewById(R.id.friend_list_recycler_view);
         toolBar = findViewById(R.id.main_toolbar);
-
+        toolbarTitle = findViewById(R.id.toolbar_title);
 
         recyclerView = findViewById(R.id.friend_list_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -58,7 +68,6 @@ public class FriendListActivity extends AppCompatActivity {
 
         adapter = friendList.new FriendListAdapter(friends, this);
         recyclerView.setAdapter(adapter);
-
 
         currentBackgroundIndex = getSharedPreferences("prefs", MODE_PRIVATE).getInt("backgroundIndex", 0);
         applyBackground();
@@ -85,6 +94,12 @@ public class FriendListActivity extends AppCompatActivity {
         Drawable background = ContextCompat.getDrawable(this, backgroundResources[currentBackgroundIndex]);
         mainLayout.setBackground(background);
         toolBar.setBackground(background);
+        updateTextColor();
+    }
+
+    private void updateTextColor() {
+        int textColor = ContextCompat.getColor(this, textColors[currentBackgroundIndex]);
+        toolbarTitle.setTextColor(textColor);
     }
 
     private User getUserFromIntent() {
