@@ -130,17 +130,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
 
-    <ImageView
-        android:id="@+id/settingsButton"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_marginTop="40dp"
-        android:onClick="settingsButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/backgroundImage2"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/settingsbutton" />
-
     <!-- bottom navigation bar -->
     <com.google.android.material.divider.MaterialDivider
         android:id="@+id/divider"
