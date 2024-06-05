@@ -59,15 +59,7 @@ public class FriendListActivity extends AppCompatActivity {
         adapter = friendList.new FriendListAdapter(friends, this);
         recyclerView.setAdapter(adapter);
 
-        ImageView settingsButton = findViewById(R.id.settingsButton);
 
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FriendListActivity.this, SettingsActivity.class);
-                startActivity(intent);
-            }
-        });
         currentBackgroundIndex = getSharedPreferences("prefs", MODE_PRIVATE).getInt("backgroundIndex", 0);
         applyBackground();
 

@@ -32,15 +32,6 @@
             app:srcCompat="@drawable/logo" />
 
 
-        <ImageView
-            android:id="@+id/settingsButton"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_below="@id/imageView3"
-            android:layout_alignEnd="@id/imageView3"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="-1dp"
-            app:srcCompat="@drawable/settingsbutton" />
     </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView

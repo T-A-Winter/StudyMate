@@ -27,7 +27,6 @@ public class ChatListActivity extends AppCompatActivity implements ChatListAdapt
 
     private RecyclerView chatListRecyclerView;
     private ChatListAdapter chatListAdapter;
-    private ImageView settingsButton;
     private RelativeLayout mainToolbar;
     private RecyclerView chatList;
     private int currentBackgroundIndex = 0;
@@ -62,15 +61,7 @@ public class ChatListActivity extends AppCompatActivity implements ChatListAdapt
         chatListAdapter.setOnItemClickListener(this);
         chatListRecyclerView.setAdapter(chatListAdapter);
 
-        ImageView settingsButton = findViewById(R.id.settingsButton);
 
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(ChatListActivity.this, SettingsActivity.class);
-                startActivity(intent);
-            }
-        });
 
         // setting up Navbar
         user = getUserFromIntent();
