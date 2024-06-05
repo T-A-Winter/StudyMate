@@ -44,8 +44,19 @@ public class MatchingAlgorithm extends AppCompatActivity {
     private int[] backgroundResources = {
             R.drawable.background_gradient,
             R.drawable.background_gradient_other,
+            R.drawable.background_gradient_green,
+            R.drawable.background_gradient_wine_red,
             R.drawable.background_gradient_second,
             R.drawable.background_gradient_third
+    };
+
+    private int[] textColors = {
+            R.color.text_color1,
+            R.color.text_color2,
+            R.color.text_color3,
+            R.color.text_color4,
+            R.color.text_color5,
+            R.color.text_color6
     };
 
     @Override
@@ -64,11 +75,10 @@ public class MatchingAlgorithm extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.menu_matching);
         navBar = new NavBar(this, bottomNavigationView, user);
 
-
         // get matching users
         matchedUsers = new LinkedList<>(matchingAlgo.match_more(user));
 
-        // prompt fist matched user
+        // prompt first matched user
         promptFirstUser();
 
         currentBackgroundIndex = getSharedPreferences("prefs", MODE_PRIVATE).getInt("backgroundIndex", 0);
@@ -100,6 +110,7 @@ public class MatchingAlgorithm extends AppCompatActivity {
         }
         return user;
     }
+
     private User setFailSafeUser() {
         String name = "failSafeUser";
         Collection<Tag> tags = new ArrayList<>(Arrays.asList(Tag.ERSTI, Tag.HCI));
@@ -117,8 +128,6 @@ public class MatchingAlgorithm extends AppCompatActivity {
         Intent intent = getIntent();
         return intent.getParcelableExtra(USER_MATCHING_ALGO_STRING);
     }
-
-
 
     private Collection<User> createRandomUsers() {
         // creating the users
@@ -190,7 +199,6 @@ public class MatchingAlgorithm extends AppCompatActivity {
         String uniText = uniTextPrefix + currentlyViewedUser.getUniversity().name();
         uniTextView.setText(uniText);
 
-        // Building the tags string TextView
         String tags = currentlyViewedUser.getTags().stream()
                 .map(Tag::name)
                 .collect(Collectors.joining(", "));
@@ -231,5 +239,16 @@ public class MatchingAlgorithm extends AppCompatActivity {
     private void applyBackground() {
         Drawable background = ContextCompat.getDrawable(this, backgroundResources[currentBackgroundIndex]);
         mainLayout.setBackground(background);
+
+        // Apply the corresponding text color
+        int textColor = ContextCompat.getColor(this, textColors[currentBackgroundIndex]);
+        TextView uniTextView = findViewById(R.id.UniTextView);
+        TextView tagsTextView = findViewById(R.id.TagsTextView);
+        TextView bioTextView = findViewById(R.id.BioTextView);
+        TextView nameTextView = findViewById(R.id.nameTextView);
+        uniTextView.setTextColor(textColor);
+        tagsTextView.setTextColor(textColor);
+        bioTextView.setTextColor(textColor);
+        nameTextView.setTextColor(textColor);
     }
 }
