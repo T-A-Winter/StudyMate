@@ -127,7 +127,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
 
-
                 <EditText
                     android:id="@+id/tagsEditText"
                     android:layout_width="0dp"

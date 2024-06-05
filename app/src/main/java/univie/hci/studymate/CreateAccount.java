@@ -36,17 +36,27 @@ public class CreateAccount extends AppCompatActivity {
     private EditText nameEditText, emailEditText, phonenumberEditText, specialRequestsEditText, tagsEditText;
     private List<Tag> selectedTags = new ArrayList<>();
 
-    //dodano
+    // Additions
     private ConstraintLayout mainLayout;
     private int currentBackgroundIndex = 0;
     private int[] backgroundResources = {
             R.drawable.background_gradient,
             R.drawable.background_gradient_other,
+            R.drawable.background_gradient_green,
+            R.drawable.background_gradient_wine_red,
             R.drawable.background_gradient_second,
             R.drawable.background_gradient_third
-
     };
-    //pick an image
+
+    private int[] textColors = {
+            R.color.text_color1,
+            R.color.text_color2,
+            R.color.text_color3,
+            R.color.text_color4,
+            R.color.text_color5,
+            R.color.text_color6
+    };
+
     private final ActivityResultLauncher<Intent> mGetContent = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
             result -> {
                 if (result.getResultCode() == RESULT_OK && result.getData() != null) {
@@ -102,7 +112,6 @@ public class CreateAccount extends AppCompatActivity {
 
         tagsEditText.setOnClickListener(v -> showTagDialog());
 
-        //load last saved background index and apply background based on that index
         currentBackgroundIndex = getSharedPreferences("prefs", MODE_PRIVATE).getInt("backgroundIndex", 0);
         applyBackground();
     }
@@ -173,5 +182,12 @@ public class CreateAccount extends AppCompatActivity {
     private void applyBackground() {
         Drawable background = ContextCompat.getDrawable(this, backgroundResources[currentBackgroundIndex]);
         mainLayout.setBackground(background);
+
+        int textColor = ContextCompat.getColor(this, textColors[currentBackgroundIndex]);
+        nameEditText.setTextColor(textColor);
+        emailEditText.setTextColor(textColor);
+        phonenumberEditText.setTextColor(textColor);
+        specialRequestsEditText.setTextColor(textColor);
+        tagsEditText.setTextColor(textColor);
     }
 }
