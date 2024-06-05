@@ -66,6 +66,7 @@ public class ChatListActivity extends AppCompatActivity implements ChatListAdapt
         // setting up Navbar
         user = getUserFromIntent();
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.menu_chats);
         navBar = new NavBar(this, bottomNavigationView, user);
     }
 

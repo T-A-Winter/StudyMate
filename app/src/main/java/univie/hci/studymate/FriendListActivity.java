@@ -66,6 +66,7 @@ public class FriendListActivity extends AppCompatActivity {
         // setting up Navbar
         user = getUserFromIntent();
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.menu_friends);
         navBar = new NavBar(this, bottomNavigationView, user);
     }
 

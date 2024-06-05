@@ -79,6 +79,7 @@ public class CalendarView extends AppCompatActivity {
         user = getUserFromIntent();
         // setting up NavBar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setSelectedItemId(R.id.menu_calendar);
         navBar = new NavBar(this, bottomNavigationView, user);
         //calendars
         selectedCalendar3 = Calendar.getInstance();
