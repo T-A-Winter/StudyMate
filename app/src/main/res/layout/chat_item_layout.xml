@@ -25,7 +25,7 @@
             android:id="@+id/chat_item_name_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             android:textColor="#FFFFFF"
             android:layout_gravity="start" />
@@ -34,7 +34,7 @@
             android:id="@+id/last_message_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
+            android:textSize="16sp"
             android:textColor="#FFFFFF"
             android:text="Last Message" />
     </LinearLayout>
@@ -44,7 +44,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Timestamp"
-        android:textSize="12sp"
+        android:textSize="16sp"
         android:textColor="#FFFFFF"
         android:layout_gravity="end"
         android:layout_marginStart="8dp"
