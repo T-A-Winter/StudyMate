@@ -128,7 +128,6 @@ public class ChatAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         }
 
         public void bind(Message message) {
-            // Bind the message content specific to time slot messages
             sentTimeSlotTextView.setText(message.getMessageContent());
             sentTimeSlotTimestamp.setText(message.getTimestamp());
         }

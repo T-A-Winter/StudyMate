@@ -19,14 +19,14 @@
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/my_button_bg" />
+        app:srcCompat="@drawable/my_button_bg2" />
 
     <ImageView
         android:id="@+id/backgroundImage2"
         android:layout_width="238dp"
         android:layout_height="250dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="32dp"
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -45,7 +45,7 @@
         android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/my_button_bg" />
+        app:srcCompat="@drawable/my_button_bg2" />
 
     <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/profilePicture"
@@ -60,21 +60,22 @@
 
     <ImageButton
         android:id="@+id/matchButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#3F51B5"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:backgroundTint="#EDEAEA"
         android:onClick="matchedWithUser"
         app:layout_constraintBottom_toBottomOf="@+id/backgroundImage1"
         app:layout_constraintEnd_toEndOf="@+id/backgroundImage1"
         app:layout_constraintStart_toStartOf="@+id/backgroundImage1"
         app:layout_constraintTop_toTopOf="@+id/backgroundImage1"
-        app:srcCompat="@drawable/students" />
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/matchinglogo" />
 
     <ImageButton
         android:id="@+id/RejectButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#3F51B5"
+        android:backgroundTint="#EDEAEA"
         android:onClick="declineWithUser"
         app:layout_constraintBottom_toBottomOf="@+id/backgroundImage3"
         app:layout_constraintEnd_toEndOf="@+id/backgroundImage3"
@@ -86,7 +87,7 @@
         android:id="@+id/changeBackgroundButton"
         android:layout_width="64dp"
         android:layout_height="72dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="40dp"
         android:layout_marginEnd="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -101,6 +102,7 @@
         android:background="@drawable/edit_text_background"
         android:text="Tags"
         android:textColor="@android:color/black"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/UniTextView" />
 
@@ -113,6 +115,7 @@
         android:background="@drawable/edit_text_background"
         android:text="Bio"
         android:textColor="@android:color/black"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TagsTextView" />
 
@@ -125,6 +128,7 @@
         android:background="@drawable/edit_text_background"
         android:text="Name"
         android:textColor="@android:color/black"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/backgroundImage2" />
 
@@ -136,6 +140,7 @@
         android:background="@drawable/edit_text_background"
         android:text="Uni"
         android:textColor="@android:color/black"
+        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
 

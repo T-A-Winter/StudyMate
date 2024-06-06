@@ -48,7 +48,7 @@ public class Chat implements Comparable<Chat> {
 
     @Override
     public int compareTo(Chat other) {
-        // Compare chats based on the timestamp of the last message
+        // Compare chats
         return other.getLastMessageTimestamp().compareTo(this.getLastMessageTimestamp());
     }
 }
