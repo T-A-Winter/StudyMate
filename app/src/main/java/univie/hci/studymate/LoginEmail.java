@@ -76,7 +76,7 @@ public class LoginEmail extends AppCompatActivity {
         int textColor = ContextCompat.getColor(this, textColors[currentBackgroundIndex]);
         emailEditText.setTextColor(textColor);
         passwordEditText.setTextColor(textColor);
-        submitLoginButton.setTextColor(textColor);
+        submitLoginButton.setTextColor(getResources().getColor(android.R.color.black));
     }
 
     private void startSearch(User user) {

@@ -102,7 +102,7 @@
         android:background="@drawable/edit_text_background"
         android:text="Tags"
         android:textColor="@android:color/black"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/UniTextView" />
 
@@ -115,7 +115,7 @@
         android:background="@drawable/edit_text_background"
         android:text="Bio"
         android:textColor="@android:color/black"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TagsTextView" />
 
@@ -128,7 +128,7 @@
         android:background="@drawable/edit_text_background"
         android:text="Name"
         android:textColor="@android:color/black"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/backgroundImage2" />
 
@@ -140,7 +140,7 @@
         android:background="@drawable/edit_text_background"
         android:text="Uni"
         android:textColor="@android:color/black"
-        android:textSize="20sp"
+        android:textSize="18sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
 
