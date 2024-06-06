@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -37,6 +38,7 @@
         android:layout_below="@id/chat_username_text_view"
         android:layout_alignStart="@id/chat_username_text_view"
         android:layout_marginTop="4dp"
+        android:layout_marginBottom="8dp"
         android:text="Last online: Just now"
         android:textColor="#FFFFFF"
         android:textSize="14sp" />
@@ -48,6 +50,7 @@
         android:layout_height="0dp"
         android:layout_above="@id/bottom_layout"
         android:layout_below="@id/last_online_status"
+        android:background="@drawable/rounded_background"
         android:padding="16dp" />
 
     <ImageButton
@@ -68,7 +71,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/background_gradient"
         android:padding="8dp">
 
         <EditText
