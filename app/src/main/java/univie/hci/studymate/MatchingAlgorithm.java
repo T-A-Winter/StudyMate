@@ -40,6 +40,7 @@ public class MatchingAlgorithm extends AppCompatActivity {
     private User currentlyViewedUser;
     private ImageView settingsButton;
     private ConstraintLayout mainLayout;
+    private ImageView changeBackgroundButton;
     private int currentBackgroundIndex = 0;
     private int[] backgroundResources = {
             R.drawable.background_gradient,
@@ -83,6 +84,14 @@ public class MatchingAlgorithm extends AppCompatActivity {
 
         currentBackgroundIndex = getSharedPreferences("prefs", MODE_PRIVATE).getInt("backgroundIndex", 0);
         applyBackground();
+
+        changeBackgroundButton = findViewById(R.id.changeBackgroundButton);
+
+        changeBackgroundButton.setOnClickListener(v -> {
+            currentBackgroundIndex = (currentBackgroundIndex + 1) % backgroundResources.length;
+            getSharedPreferences("prefs", MODE_PRIVATE).edit().putInt("backgroundIndex", currentBackgroundIndex).apply();
+            applyBackground();
+        });
     }
 
     @Override

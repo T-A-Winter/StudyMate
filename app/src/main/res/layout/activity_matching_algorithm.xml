@@ -9,7 +9,6 @@
     android:background="@drawable/background_gradient"
     tools:context=".MatchingAlgorithm">
 
-    <!-- Existing views -->
 
     <ImageView
         android:id="@+id/backgroundImage1"
@@ -83,6 +82,16 @@
         app:layout_constraintTop_toTopOf="@+id/backgroundImage3"
         app:srcCompat="@drawable/cross" />
 
+    <ImageView
+        android:id="@+id/changeBackgroundButton"
+        android:layout_width="64dp"
+        android:layout_height="72dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/changecolor" />
+
     <TextView
         android:id="@+id/TagsTextView"
         android:layout_width="wrap_content"
@@ -130,7 +139,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameTextView" />
 
-    <!-- bottom navigation bar -->
+    <!-- menu bar -->
     <com.google.android.material.divider.MaterialDivider
         android:id="@+id/divider"
         android:layout_width="match_parent"
