@@ -145,13 +145,13 @@ public class MatchingAlgorithm extends AppCompatActivity {
                     String name = "User" + userIndex;
                     String email = "user" + userIndex + "@example.com";
                     Integer phoneNumber = 123456 + userIndex;
-                    String bio = "bio from user" + userIndex;
+                    String bio = "bio from user" + userIndex + "\nLorem ipsum dolor sit amet, consetetur\nsadipscing elitr, sed diam\nnonumy eirmod tempor invidunt ut";
 
                     // rand Uni
                     University randomUniversity = University.values()[random.nextInt(University.values().length)];
 
                     // selecting 1-3 rand Tags
-                    List<Tag> tagList = random.ints(1, 4)
+                    List<Tag> tagList = random.ints(1, 6)
                             .mapToObj(n -> Tag.values()[random.nextInt(Tag.values().length)])
                             .distinct()
                             .limit(3)
