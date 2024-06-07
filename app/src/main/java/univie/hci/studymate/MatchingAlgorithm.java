@@ -42,6 +42,7 @@ public class MatchingAlgorithm extends AppCompatActivity {
     private ConstraintLayout mainLayout;
     private ImageView changeBackgroundButton;
     private int currentBackgroundIndex = 0;
+    private static int userCount = 0;
     private int[] backgroundResources = {
             R.drawable.background_gradient,
             R.drawable.background_gradient_other,
@@ -142,10 +143,10 @@ public class MatchingAlgorithm extends AppCompatActivity {
         // creating the users
         return IntStream.range(1, 21)
                 .mapToObj(userIndex -> {
-                    String name = "User" + userIndex;
-                    String email = "user" + userIndex + "@example.com";
-                    Integer phoneNumber = 123456 + userIndex;
-                    String bio = "bio from user" + userIndex + "\nLorem ipsum dolor sit amet, consetetur\nsadipscing elitr, sed diam\nnonumy eirmod tempor invidunt ut";
+                    String name = "User" + userCount;
+                    String email = "user" + userCount + "@example.com";
+                    Integer phoneNumber = 123456 + userCount;
+                    String bio = "bio from user" + userCount + "\nLorem ipsum dolor sit amet, consetetur\nsadipscing elitr, sed diam\nnonumy eirmod tempor invidunt ut";
 
                     // rand Uni
                     University randomUniversity = University.values()[random.nextInt(University.values().length)];
@@ -157,6 +158,7 @@ public class MatchingAlgorithm extends AppCompatActivity {
                             .limit(3)
                             .collect(Collectors.toList());
 
+                    userCount++;
                     return new User(name, randomUniversity, tagList, email, phoneNumber, bio);
                 })
                 .collect(Collectors.toList());
