@@ -145,7 +145,7 @@ public class MatchingAlgorithm extends AppCompatActivity {
                 .mapToObj(userIndex -> {
                     String name = "User" + userCount;
                     String email = "user" + userCount + "@example.com";
-                    Integer phoneNumber = 123456 + userCount;
+                    String phoneNumber = "123456";
                     String bio = "bio from user" + userCount + "\nLorem ipsum dolor sit amet, consetetur\nsadipscing elitr, sed diam\nnonumy eirmod tempor invidunt ut";
 
                     // rand Uni
