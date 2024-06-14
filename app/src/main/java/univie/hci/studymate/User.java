@@ -13,14 +13,15 @@ public class User implements Parcelable {
     private University university;
     private Collection<Tag> tags;
     private String email; // Is the ID of the user
-    private Integer phoneNumber = 0;
+    private String phoneNumber = "";
     private String biography = "";
     //private FriendList friends = new FriendList(); // Removed direct instantiation
     private int profilePictureSeed = 0;
-    public String getProfilePictureUrl() {
 
+    public String getProfilePictureUrl() {
         return "https://api.dicebear.com/8.x/lorelei/png?seed=" + profilePictureSeed;
     }
+
     public User(String name, University university, Collection<Tag> tags, String email) {
         this.name = name;
         this.university = university;
@@ -36,7 +37,7 @@ public class User implements Parcelable {
         return profilePictureSeed;
     }
 
-    public User(String name, University university, Collection<Tag> tags, String email, int phoneNumber, String biography) {
+    public User(String name, University university, Collection<Tag> tags, String email, String phoneNumber, String biography) {
         this.name = name;
         this.university = university;
         this.tags = tags;
@@ -51,7 +52,7 @@ public class User implements Parcelable {
         tags = new ArrayList<>();
         in.readList((List<Tag>) tags, Tag.class.getClassLoader());
         email = in.readString();
-        phoneNumber = in.readInt();
+        phoneNumber = in.readString();
         biography = in.readString();
         profilePictureSeed = in.readInt();
     }
@@ -79,18 +80,19 @@ public class User implements Parcelable {
         parcel.writeString(university.name());
         parcel.writeList(new ArrayList<>(tags));
         parcel.writeString(email);
-        parcel.writeInt(phoneNumber);
+        parcel.writeString(phoneNumber);
         parcel.writeString(biography);
         parcel.writeInt(profilePictureSeed);
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
     public String getId() {
         return name; // Assuming name is user ID
     }
+
     public void setBiography(String biography) {
         this.biography = biography;
     }
@@ -99,10 +101,21 @@ public class User implements Parcelable {
         return tags;
     }
 
-    public University getUniversity() { return university; }
-    public String getBiography() { return biography; }
-    public String getName() { return name; }
-    public String getEmail() { return email; }
+    public University getUniversity() {
+        return university;
+    }
+
+    public String getBiography() {
+        return biography;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
 
     @Override
     public boolean equals(Object o) {
