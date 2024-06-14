@@ -78,8 +78,8 @@ public class MainActivity extends AppCompatActivity {
 
         // Update text color
         int textColor = ContextCompat.getColor(this, textColors[currentBackgroundIndex]);
-        createAccountButton.setTextColor(textColor);
-        loginEmailButton.setTextColor(textColor);
+        createAccountButton.setTextColor(getResources().getColor(R.color.text_color2));
+        loginEmailButton.setTextColor(getResources().getColor(R.color.text_color2));
         titleTextView.setTextColor(textColor);
     }
 
