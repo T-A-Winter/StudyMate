@@ -11,15 +11,17 @@
 
 
     <ImageView
-        android:id="@+id/backgroundImage1"
+        android:id="@+id/matchButton"
         android:layout_width="104dp"
         android:layout_height="102dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="140dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="24dp"
+        android:onClick="matchedWithUser"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/my_button_bg2" />
+        app:srcCompat="@drawable/matching_button_icon" />
 
     <ImageView
         android:id="@+id/backgroundImage2"
@@ -34,18 +36,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.03"
-        app:srcCompat="@drawable/my_button_bg2" />
+        app:srcCompat="@drawable/profile_background" />
 
     <ImageView
-        android:id="@+id/backgroundImage3"
+        android:id="@+id/RejectButton"
         android:layout_width="104dp"
         android:layout_height="102dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginBottom="140dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="24dp"
+        android:onClick="declineWithUser"
         android:scaleType="centerCrop"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/my_button_bg2" />
+        app:srcCompat="@drawable/not_match_button" />
 
     <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/profilePicture"
@@ -57,31 +61,6 @@
         app:layout_constraintStart_toStartOf="@+id/backgroundImage2"
         app:layout_constraintTop_toTopOf="@+id/backgroundImage2"
         app:layout_constraintVertical_bias="0.0" />
-
-    <ImageButton
-        android:id="@+id/matchButton"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
-        android:backgroundTint="#EDEAEA"
-        android:onClick="matchedWithUser"
-        app:layout_constraintBottom_toBottomOf="@+id/backgroundImage1"
-        app:layout_constraintEnd_toEndOf="@+id/backgroundImage1"
-        app:layout_constraintStart_toStartOf="@+id/backgroundImage1"
-        app:layout_constraintTop_toTopOf="@+id/backgroundImage1"
-        android:scaleType="fitCenter"
-        app:srcCompat="@drawable/matchinglogo" />
-
-    <ImageButton
-        android:id="@+id/RejectButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#EDEAEA"
-        android:onClick="declineWithUser"
-        app:layout_constraintBottom_toBottomOf="@+id/backgroundImage3"
-        app:layout_constraintEnd_toEndOf="@+id/backgroundImage3"
-        app:layout_constraintStart_toStartOf="@+id/backgroundImage3"
-        app:layout_constraintTop_toTopOf="@+id/backgroundImage3"
-        app:srcCompat="@drawable/cross" />
 
     <ImageView
         android:id="@+id/changeBackgroundButton"
@@ -108,14 +87,16 @@
 
     <TextView
         android:id="@+id/BioTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/edit_text_background"
         android:text="Bio"
         android:textColor="@android:color/black"
         android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/TagsTextView" />
 
@@ -123,12 +104,13 @@
         android:id="@+id/nameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="176dp"
-        android:layout_marginTop="32dp"
-        android:background="@drawable/edit_text_background"
+        android:layout_marginTop="16dp"
         android:text="Name"
+        android:textAllCaps="true"
         android:textColor="@android:color/black"
-        android:textSize="18sp"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/backgroundImage2" />
 
@@ -137,6 +119,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
         android:background="@drawable/edit_text_background"
         android:text="Uni"
         android:textColor="@android:color/black"
